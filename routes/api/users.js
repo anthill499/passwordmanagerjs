@@ -52,10 +52,15 @@ router.post("/signin", isValidInfo, async (req, res) => {
     }
 
     const token = jwtAuthenticater(user.rows[0].user_id);
-    res.send({ token });
+    res.json({
+      token,
+      username: user.rows[0].username,
+      id: user.rows[0].user_id,
+    });
   } catch (err) {
     res.status(500).json({ message: "Bad Request" });
   }
 });
+
 // Export the router
 module.exports = router;

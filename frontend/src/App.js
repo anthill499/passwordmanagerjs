@@ -3,11 +3,13 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./components/landing/Landing";
 import Signup from "./components/auth/Signup";
+import Signin from "./components/auth/Signin";
 import Dashboard from "./components/dashboard/Dashboard";
 import { AuthContext } from "./context/Contexts";
 import { PrivateRoute, AuthRoute } from "./util/RouteUtil";
 import { AuthReducer, initialState } from "./store/reducers/authReducer";
 import { login, logout } from "./store/actions/AuthActions";
+
 function App() {
   const [stateAuthReducer, dispatchAuthReducer] = useReducer(
     AuthReducer,
@@ -26,7 +28,7 @@ function App() {
           <Route
             path="/"
             element={
-              <PrivateRoute redirectTo="/signup">
+              <PrivateRoute redirectTo="/signin">
                 <Landing />
               </PrivateRoute>
             }
@@ -34,7 +36,7 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <PrivateRoute redirectTo="/signup">
+              <PrivateRoute redirectTo="/signin">
                 <Dashboard />
               </PrivateRoute>
             }
@@ -44,6 +46,14 @@ function App() {
             element={
               <AuthRoute redirectTo="/dashboard">
                 <Signup />
+              </AuthRoute>
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <AuthRoute redirectTo="/dashboard">
+                <Signin />
               </AuthRoute>
             }
           />
