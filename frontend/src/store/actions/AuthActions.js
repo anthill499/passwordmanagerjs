@@ -10,6 +10,7 @@ export const login = (data) => {
 };
 
 export const logout = () => {
+  localStorage.removeItem("user");
   return {
     type: ACTION_TYPE.LOGOUT,
   };

@@ -1,10 +1,14 @@
 import * as ACTION_TYPE from "../actions/types";
 
+const user = localStorage.getItem("user")
+  ? JSON.parse(localStorage.getItem("user"))
+  : "";
+
 export const initialState = {
-  isLoggedIn: false,
-  username: "",
-  token: "",
-  id: "",
+  isLoggedIn: false || (user ? true : false),
+  username: "" || user.username,
+  token: "" || user.token,
+  id: "" || user.id,
 };
 
 export const AuthReducer = (state = initialState, action) => {

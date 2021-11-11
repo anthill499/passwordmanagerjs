@@ -23,6 +23,8 @@ const Signin = () => {
       });
       const parseResp = await response.json();
       authGlobal.login(parseResp);
+      console.log(parseResp);
+      localStorage.setItem("user", JSON.stringify(parseResp));
     } catch (err) {
       console.error(err);
     }

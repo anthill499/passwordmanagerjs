@@ -24,8 +24,8 @@ const Signup = () => {
         body: JSON.stringify(data),
       });
       const parseResp = await response.json();
-      // Dispatch action;
       authGlobal.login(parseResp);
+      localStorage.setItem("user", JSON.stringify(parseResp));
     } catch (err) {
       console.error(err);
     }
