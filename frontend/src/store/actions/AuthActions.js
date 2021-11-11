@@ -5,7 +5,6 @@ export const login = (data) => {
     type: ACTION_TYPE.LOGIN,
     username: data.username,
     token: data.token,
-    email: data.email,
     id: data.id,
   };
 };

@@ -1,31 +1,15 @@
-// import React, { useContext } from "react";
-// import { Route, Redirect } from "react-router-dom";
-// import { AuthContext } from "./context";
+import React, { useContext } from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "../context/Contexts";
 
-// export function PrivateRoute({ component: Component, ...rest }) {
-//   const authGlobal = useContext(AuthContext);
-//   return (
-//     <Route
-//       {...rest}
-//       render={(props) =>
-//         authGlobal.authState ? <Component {...props} /> : <Redirect to="/" />
-//       }
-//     />
-//   );
-// }
+// Protected Routes
+export const PrivateRoute = ({ children, redirectTo }) => {
+  const authGlobal = useContext(AuthContext);
+  return authGlobal.isLoggedIn ? children : <Navigate to={redirectTo} />;
+};
 
-// export function AuthRoute({ component: Component, ...rest }) {
-//   const authGlobal = useContext(AuthContext);
-//   return (
-//     <Route
-//       {...rest}
-//       render={(props) =>
-//         !authGlobal.authState ? (
-//           <Component {...props} />
-//         ) : (
-//           <Redirect to="/landing" />
-//         )
-//       }
-//     />
-//   );
-// }
+// Login, Signup page
+export const AuthRoute = ({ children, redirectTo }) => {
+  const authGlobal = useContext(AuthContext);
+  return !authGlobal.isLoggedIn ? children : <Navigate to={redirectTo} />;
+};

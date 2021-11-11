@@ -6,11 +6,13 @@ const { isValidInfo } = require("../../middleware/authMiddleware");
 
 // Registering/ POST
 router.post("/signup", isValidInfo, async (req, res) => {
+  console.log("working");
   try {
     const { username, password } = req.body;
     const user = await pool.query("SELECT * FROM users WHERE username = $1", [
       username,
     ]);
+
     // Similar to ActiveRecord
     if (user.rows.length !== 0) {
       return res.status(401).send("User already exists");
@@ -23,11 +25,12 @@ router.post("/signup", isValidInfo, async (req, res) => {
       "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *",
       [username, hashedPassword]
     );
-
+    console.log(newUser.rows[0]);
     // Create a JWT token, destructures user
-    const { user_id } = await newUser.rows[0];
-    const token = jwtAuthenticater(user_id);
-    res.json({ token });
+    const currUser = await newUser.rows[0];
+    const token = jwtAuthenticater(currUser.user_id);
+    console.log({ token });
+    res.json({ token, username: currUser.username, id: currUser.user_id });
   } catch (error) {
     res.status(500).json({ message: "Bad Request" });
   }

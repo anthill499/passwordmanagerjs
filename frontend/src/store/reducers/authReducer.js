@@ -1,12 +1,9 @@
-import * as ACTION_TYPE from "./types";
+import * as ACTION_TYPE from "../actions/types";
 
 export const initialState = {
-  isAuth: false,
+  isLoggedIn: false,
   username: "",
-  firstName: "",
-  lastName: "",
   token: "",
-  email: "",
   id: "",
 };
 
@@ -14,14 +11,14 @@ export const AuthReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPE.LOGIN:
       return {
-        isAuth: true,
+        isLoggedIn: true,
         username: action.username,
         token: action.token,
         id: action.id,
       };
     case ACTION_TYPE.LOGOUT:
       return {
-        isAuth: false,
+        isLoggedIn: false,
         username: "",
         token: "",
         id: "",

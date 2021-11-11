@@ -1,5 +1,6 @@
 CREATE DATABASE password_manager;
 
+-- drop table scripts
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS combinations;
 
@@ -26,7 +27,7 @@ CREATE TABLE combinations(
       FOREIGN KEY(author_id) 
 	  REFERENCES users(user_id)
 );
-
+-- cascade
 INSERT INTO users (username, password) VALUES ('demouser', 'Password1!');
 
 INSERT INTO combinations (author_id, username, company_name, pw) VALUES ('6fb3a5ca-0218-4171-9956-c30c4f119546', 'demouser', 'Facebook', 'Password!Q123');

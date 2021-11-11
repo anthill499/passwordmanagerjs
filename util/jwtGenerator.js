@@ -7,5 +7,4 @@ const jwtGenerator = (userId) => {
   };
   return jwt.sign(payload, keys.jwtKey, { expiresIn: 3600 });
 };
-// comment
 module.exports = jwtGenerator;
