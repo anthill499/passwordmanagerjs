@@ -125,12 +125,14 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
         />
         <label htmlFor="password">
           Password {clipMessage && <span>{clipMessage}</span>}
-          <img
-            src="https://img.icons8.com/material-outlined/24/000000/copy.png"
-            alt="clipboard"
-            className="Clipboard"
-            onClick={() => handleClipboard()}
-          />
+          {password.length > 0 && (
+            <img
+              src="https://img.icons8.com/material-outlined/24/000000/copy.png"
+              alt="clipboard"
+              className="Clipboard"
+              onClick={() => handleClipboard()}
+            />
+          )}
         </label>
         <input
           name="password"
