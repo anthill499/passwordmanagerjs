@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&family=Source+Sans+Pro:wght@600;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;600&display=swap");
+
+button:hover,
+a:hover {
+  cursor: pointer;
+}
+
+h4,
+label {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 900;
+}
+
+button {
+  font-family: "Roboto Mono", monospace;
+  font-weight: 400;
+}

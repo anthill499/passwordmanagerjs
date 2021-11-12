@@ -6,7 +6,6 @@ const Dashboard = () => {
   return (
     <div>
       <p>Dashboard Route</p>
-      <button onClick={() => authGlobal.logout()}>Log Out</button>
     </div>
   );
 };

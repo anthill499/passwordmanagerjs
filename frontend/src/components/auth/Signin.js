@@ -1,11 +1,15 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../context/Contexts";
+import { useNavigate } from "react-router";
+import "../../styles/global.css";
+import "../../styles/auth.css";
 
 const Signin = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
 
   const authGlobal = useContext(AuthContext);
+  const navigate = useNavigate();
   const handleSignin = async (
     e,
     url = "/auth/signin",
@@ -43,15 +47,20 @@ const Signin = () => {
         />
         <label htmlFor="password">Password</label>
         <input
+          type="password"
           name="password"
           value={password}
           onChange={(e) => setpassword(e.currentTarget.value)}
           placeholder="Enter your password"
         />
         <button onClick={(e) => handleSignin(e)}>Sign In</button>
+        <button onClick={() => navigate("/signup", { replace: true })}>
+          Don't have an account?
+        </button>
       </form>
     </div>
   );
 };
 
+// passwordQ!1
 export default Signin;

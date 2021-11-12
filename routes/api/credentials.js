@@ -2,7 +2,6 @@ const router = require("express").Router();
 const pool = require("../../db");
 const jwtAuthenticater = require("../../util/jwtGenerator");
 const { authenticateToken } = require("../../middleware/authMiddleware");
-const passwordGenerator = require("../../util/passwordGenerator");
 // ADD token middleware
 
 // Fetch all credentials, using id of the user, GET

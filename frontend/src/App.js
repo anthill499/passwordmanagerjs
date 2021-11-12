@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./components/landing/Landing";
 import Signup from "./components/auth/Signup";
 import Signin from "./components/auth/Signin";
+import Heading from "./components/Heading/Heading";
 import Dashboard from "./components/dashboard/Dashboard";
 import { AuthContext } from "./context/Contexts";
 import { PrivateRoute, AuthRoute } from "./util/RouteUtil";
@@ -28,15 +29,16 @@ function App() {
           <Route
             path="/"
             element={
-              <PrivateRoute redirectTo="/signin">
+              <AuthRoute redirectTo="/signin">
                 <Landing />
-              </PrivateRoute>
+              </AuthRoute>
             }
           />
           <Route
             path="/dashboard"
             element={
               <PrivateRoute redirectTo="/signin">
+                <Heading />
                 <Dashboard />
               </PrivateRoute>
             }

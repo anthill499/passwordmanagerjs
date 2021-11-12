@@ -1,10 +1,13 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router";
 import { AuthContext } from "../../context/Contexts";
-// import "../../styles/auth";
+import "../../styles/auth.css";
+import "../../styles/global.css";
 // Sign up form
 const Signup = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const navigate = useNavigate();
 
   // Context
   const authGlobal = useContext(AuthContext);
@@ -44,12 +47,18 @@ const Signup = () => {
         />
         <label htmlFor="password">Password</label>
         <input
+          type="password"
           name="password"
           value={password}
           onChange={(e) => setpassword(e.currentTarget.value)}
           placeholder="Enter a password"
         />
-        <button onClick={(e) => handleSignup(e)}>Create Account</button>
+        <div className="Auth-Button-Group">
+          <button onClick={(e) => handleSignup(e)}>Create Account</button>
+          <button onClick={() => navigate("/signin", { replace: true })}>
+            Already have an account?
+          </button>
+        </div>
       </form>
     </div>
   );
