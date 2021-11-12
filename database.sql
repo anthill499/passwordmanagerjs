@@ -21,6 +21,7 @@ CREATE TABLE combinations(
     company_name VARCHAR(255) NOT NULL,
     pw VARCHAR(255) NOT NULL,
     strength INT NOT NULL,
+    removed BOOLEAN NOT NULL DEFAULT false,
     created_at TIMESTAMP DEFAULT Now(),
     UNIQUE (author_id, company_name),
     PRIMARY KEY(entry_id),
@@ -32,7 +33,7 @@ CREATE TABLE combinations(
 -- cascade
 INSERT INTO users (username, password) VALUES ('demouser', 'Password1!');
 
-INSERT INTO combinations (author_id, username, company_name, pw, strength) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Facebook', 'Password!Q123', 3);
-INSERT INTO combinations (author_id, username, company_name, pw, strength) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Amazon', 'Password!Q123', 3);
-INSERT INTO combinations (author_id, username, company_name, pw, strength) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Uber', 'Password!Q123', 3);
-INSERT INTO combinations (author_id, username, company_name, pw, strength) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Palantir Technologies', 'Password!Q123', 3);
+INSERT INTO combinations (author_id, username, company_name, pw, strength, removed) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Facebook', 'Password!Q123', 3, false);
+INSERT INTO combinations (author_id, username, company_name, pw, strength, removed VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Amazon', 'Password!Q123', 3, false);
+INSERT INTO combinations (author_id, username, company_name, pw, strength, removed) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Uber', 'Password!Q123', 3, false);
+INSERT INTO combinations (author_id, username, company_name, pw, strength, removed) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Palantir Technologies', 'Password!Q123', 3, false);

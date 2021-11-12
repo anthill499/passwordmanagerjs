@@ -15,10 +15,80 @@
   left: 0;
   right: 0;
   width: 400px;
+  padding: 30px;
+  background-color: #d3d3d3e0;
+  border-radius: 5px;
 }
 
 .Credential-Form {
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+
+.Credential-Form input {
+  height: 50px;
+  padding-left: 12px;
+  border-radius: 10px;
+  outline: 1px solid grey;
+  border: none;
+  font-size: 14px;
+}
+
+.close:hover {
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.Credential-Form button {
+  height: 40px;
+  width: 80%;
+  align-self: center;
+  border-radius: 10px;
+  border: none;
+  outline: 0.5px solid grey;
+}
+
+button:hover {
+  opacity: 0.6;
+}
+
+/* .Password-Input {
+  display: flex;
+  flex-direction: column;
+}
+
+.Password-Input img {
+  font-size: 10px;
+} */
+
+.Clipboard {
+  position: absolute;
+  margin: auto;
+  left: 85%;
+}
+
+.Emoji-List {
+  display: flex;
+  list-style: none;
+  justify-content: space-around;
+  padding: 0;
+}
+
+.Emoji-List li {
+  font-size: 35px;
+}
+
+.Emoji-List li:hover {
+  cursor: pointer;
+  filter: brightness(0.6);
+}
+
+.Clipboard:hover {
+  cursor: pointer;
+  opacity: 0.25;
+}
+
+.Copied {
+  color: green;
 }
