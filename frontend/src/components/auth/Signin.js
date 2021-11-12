@@ -7,7 +7,7 @@ import "../../styles/auth.css";
 const Signin = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
-
+  const [backendErrors, setbackendErrors] = useState(null);
   const authGlobal = useContext(AuthContext);
   const navigate = useNavigate();
   const handleSignin = async (
@@ -53,14 +53,15 @@ const Signin = () => {
           onChange={(e) => setpassword(e.currentTarget.value)}
           placeholder="Enter your password"
         />
-        <button onClick={(e) => handleSignin(e)}>Sign In</button>
-        <button onClick={() => navigate("/signup", { replace: true })}>
-          Don't have an account?
-        </button>
+        <div className="Auth-Button-Group">
+          <button onClick={(e) => handleSignin(e)}>Sign In</button>
+          <button onClick={() => navigate("/signup", { replace: true })}>
+            Don't have an account?
+          </button>
+        </div>
       </form>
     </div>
   );
 };
 
-// passwordQ!1
 export default Signin;

@@ -1,6 +1,7 @@
 // Token Authenticator
 const jwt = require("jsonwebtoken");
 const keys = require("../config/prodkeys");
+
 async function authenticateToken(req, res, next) {
   try {
     const jwtToken = await req.header("token");
@@ -31,9 +32,8 @@ async function isValidInfo(req, res, next) {
       errors["username"] = "Username is too short. Choose 8 characters";
     }
     if (!password.match(regex)) {
-      errors["password"] = "Enter a stronger password";
+      errors["password"] = "Enter a stronger spassword";
     }
-
     if (password.length === 0) {
       errors["password"] = "Password can not be empty";
     }
@@ -47,9 +47,9 @@ async function isValidInfo(req, res, next) {
   }
 
   if (Object.values(errors).length > 0) {
-    return res.status(401).json(errors);
+    return res.status(401).json({ errors: errors });
   }
-  // if errors hash has 1 obj in it, return errors, if not, move on to endpoint
+  console.log("hit1");
   next();
 }
 

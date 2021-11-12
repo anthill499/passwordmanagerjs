@@ -7,6 +7,8 @@ import "../../styles/global.css";
 const Signup = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const [backendErrors, setbackendErrors] = useState(null);
+
   const navigate = useNavigate();
 
   // Context
@@ -27,8 +29,13 @@ const Signup = () => {
         body: JSON.stringify(data),
       });
       const parseResp = await response.json();
-      authGlobal.login(parseResp);
-      localStorage.setItem("user", JSON.stringify(parseResp));
+      if (response.ok) {
+        authGlobal.login(parseResp);
+        localStorage.setItem("user", JSON.stringify(parseResp));
+      } else {
+        setbackendErrors(Object.values(parseResp.errors));
+        console.log(backendErrors);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -44,6 +51,10 @@ const Signup = () => {
           value={username}
           onChange={(e) => setusername(e.currentTarget.value)}
           placeholder="Enter a username"
+          style={{
+            outlineColor: backendErrors?.length >= 1 ? "red" : null,
+          }}
+          className={backendErrors?.length >= 1 ? "Auth-Input" : null}
         />
         <label htmlFor="password">Password</label>
         <input
@@ -52,6 +63,8 @@ const Signup = () => {
           value={password}
           onChange={(e) => setpassword(e.currentTarget.value)}
           placeholder="Enter a password"
+          style={{ outlineColor: backendErrors?.length >= 1 ? "red" : null }}
+          className={backendErrors?.length >= 1 ? "Auth-Input" : null}
         />
         <div className="Auth-Button-Group">
           <button onClick={(e) => handleSignup(e)}>Create Account</button>

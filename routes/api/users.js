@@ -4,9 +4,8 @@ const pool = require("../../db");
 const jwtAuthenticater = require("../../util/jwtGenerator");
 const { isValidInfo } = require("../../middleware/authMiddleware");
 
-// Registering/ POST
+// Registering /POST
 router.post("/signup", isValidInfo, async (req, res) => {
-  console.log("working");
   try {
     const { username, password } = req.body;
     const user = await pool.query("SELECT * FROM users WHERE username = $1", [
@@ -15,7 +14,7 @@ router.post("/signup", isValidInfo, async (req, res) => {
 
     // Similar to ActiveRecord
     if (user.rows.length !== 0) {
-      return res.status(401).send("User already exists");
+      return res.status(401).json({ errors: ["Username already taken"] });
     }
 
     // If username is unique, bcrypt the input password
@@ -32,7 +31,7 @@ router.post("/signup", isValidInfo, async (req, res) => {
     console.log({ token });
     res.json({ token, username: currUser.username, id: currUser.user_id });
   } catch (error) {
-    res.status(500).json({ message: "Bad Request" });
+    res.status(500).json({ errors: ["Bad Request"] });
   }
 });
 
@@ -58,7 +57,7 @@ router.post("/signin", isValidInfo, async (req, res) => {
       id: user.rows[0].user_id,
     });
   } catch (err) {
-    res.status(500).json({ message: "Bad Request" });
+    res.status(500).json({ errors: ["Bad Request"] });
   }
 });
 
