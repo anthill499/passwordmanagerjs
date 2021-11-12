@@ -15,7 +15,7 @@ const Signup = () => {
   const authGlobal = useContext(AuthContext);
   const handleSignup = async (
     e,
-    url = "/auth/signup",
+    url = "/api/auth/signup",
     data = { username: username, password: password }
   ) => {
     e.preventDefault();
@@ -34,6 +34,7 @@ const Signup = () => {
         localStorage.setItem("user", JSON.stringify(parseResp));
       } else {
         setbackendErrors(Object.values(parseResp.errors));
+        console.log(parseResp.errors);
         console.log(backendErrors);
       }
     } catch (err) {
@@ -56,16 +57,18 @@ const Signup = () => {
           }}
           className={backendErrors?.length >= 1 ? "Auth-Input" : null}
         />
+        {/* {backendErrors?.[backendErrors?.indexOf("Username can not be empty")]} */}
         <label htmlFor="password">Password</label>
         <input
           type="password"
           name="password"
           value={password}
           onChange={(e) => setpassword(e.currentTarget.value)}
-          placeholder="Enter a password"
+          placeholder="Enter a strong password"
           style={{ outlineColor: backendErrors?.length >= 1 ? "red" : null }}
           className={backendErrors?.length >= 1 ? "Auth-Input" : null}
         />
+        {/* {backendErrors?.[backendErrors?.indexOf("Password can not be empty")]} */}
         <div className="Auth-Button-Group">
           <button onClick={(e) => handleSignup(e)}>Create Account</button>
           <button onClick={() => navigate("/signin", { replace: true })}>

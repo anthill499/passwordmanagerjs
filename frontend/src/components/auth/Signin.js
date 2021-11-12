@@ -7,12 +7,12 @@ import "../../styles/auth.css";
 const Signin = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
-  const [backendErrors, setbackendErrors] = useState(null);
+  const [backendErrors, setbackendErrors] = useState([]);
   const authGlobal = useContext(AuthContext);
   const navigate = useNavigate();
   const handleSignin = async (
     e,
-    url = "/auth/signin",
+    url = "/api/auth/signin",
     data = { username: username, password: password }
   ) => {
     e.preventDefault();
@@ -25,10 +25,15 @@ const Signin = () => {
         },
         body: JSON.stringify(data),
       });
+      console.log(response.ok);
       const parseResp = await response.json();
-      authGlobal.login(parseResp);
-      console.log(parseResp);
-      localStorage.setItem("user", JSON.stringify(parseResp));
+      if (response.ok) {
+        authGlobal.login(parseResp);
+        localStorage.setItem("user", JSON.stringify(parseResp));
+      } else {
+        setbackendErrors(Object.values(parseResp.errors));
+        console.log(parseResp.errors);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -44,6 +49,10 @@ const Signin = () => {
           value={username}
           onChange={(e) => setusername(e.currentTarget.value)}
           placeholder="Enter your username"
+          className={backendErrors?.length >= 1 ? "Auth-Input" : null}
+          style={{
+            outlineColor: backendErrors?.length >= 1 ? "red" : null,
+          }}
         />
         <label htmlFor="password">Password</label>
         <input
@@ -52,6 +61,10 @@ const Signin = () => {
           value={password}
           onChange={(e) => setpassword(e.currentTarget.value)}
           placeholder="Enter your password"
+          className={backendErrors?.length >= 1 ? "Auth-Input" : null}
+          style={{
+            outlineColor: backendErrors?.length >= 1 ? "red" : null,
+          }}
         />
         <div className="Auth-Button-Group">
           <button onClick={(e) => handleSignin(e)}>Sign In</button>

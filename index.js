@@ -17,8 +17,8 @@ app.get("/test", (req, res) => {
 });
 
 // Routes
-app.use("/auth", require("./routes/api/users"));
-app.use("/cred", require("./routes/api/credentials"));
+app.use("/api/auth", require("./routes/api/users"));
+app.use("/api/cred", require("./routes/api/credentials"));
 
 // App Listening On
 app.listen(5000, () => {

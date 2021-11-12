@@ -1,0 +1,18 @@
+.Dashboard-Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Dashboard-Map {
+}
+
+.Credential-Form-Container {
+  position: absolute;
+  margin: auto;
+}
+
+.Credential-Form {
+  display: flex;
+  flex-direction: column;
+}

@@ -49,7 +49,8 @@ async function isValidInfo(req, res, next) {
   if (Object.values(errors).length > 0) {
     return res.status(401).json({ errors: errors });
   }
-  console.log("hit1");
+
+  // return
   next();
 }
 

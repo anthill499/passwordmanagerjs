@@ -24,11 +24,9 @@ router.post("/signup", isValidInfo, async (req, res) => {
       "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *",
       [username, hashedPassword]
     );
-    console.log(newUser.rows[0]);
     // Create a JWT token, destructures user
     const currUser = await newUser.rows[0];
     const token = jwtAuthenticater(currUser.user_id);
-    console.log({ token });
     res.json({ token, username: currUser.username, id: currUser.user_id });
   } catch (error) {
     res.status(500).json({ errors: ["Bad Request"] });
