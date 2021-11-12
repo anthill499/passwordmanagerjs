@@ -4,15 +4,21 @@
   align-items: center;
 }
 
-.Dashboard-Map {
+.Credential-Header {
+  text-align: center;
 }
 
 .Credential-Form-Container {
   position: absolute;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  width: 400px;
 }
 
 .Credential-Form {
   display: flex;
   flex-direction: column;
+  gap: 15px;
 }
