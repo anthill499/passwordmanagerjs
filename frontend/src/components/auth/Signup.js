@@ -34,8 +34,6 @@ const Signup = () => {
         localStorage.setItem("user", JSON.stringify(parseResp));
       } else {
         setbackendErrors(Object.values(parseResp.errors));
-        console.log(parseResp.errors);
-        console.log(backendErrors);
       }
     } catch (err) {
       console.error(err);

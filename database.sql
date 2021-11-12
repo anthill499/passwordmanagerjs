@@ -33,7 +33,5 @@ CREATE TABLE combinations(
 -- cascade
 INSERT INTO users (username, password) VALUES ('demouser', 'Password1!');
 
-INSERT INTO combinations (author_id, username, company_name, pw, strength, removed) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Facebook', 'Password!Q123', 3, false);
-INSERT INTO combinations (author_id, username, company_name, pw, strength, removed VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Amazon', 'Password!Q123', 3, false);
-INSERT INTO combinations (author_id, username, company_name, pw, strength, removed) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Uber', 'Password!Q123', 3, false);
-INSERT INTO combinations (author_id, username, company_name, pw, strength, removed) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Palantir Technologies', 'Password!Q123', 3, false);
+INSERT INTO combinations (author_id, username, company_name, pw, strength, removed) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Facebook', 'Password!Q@#%#$%qwe123', 4, false);
+

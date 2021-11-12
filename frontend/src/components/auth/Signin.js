@@ -32,7 +32,6 @@ const Signin = () => {
         localStorage.setItem("user", JSON.stringify(parseResp));
       } else {
         setbackendErrors(Object.values(parseResp.errors));
-        console.log(parseResp.errors);
       }
     } catch (err) {
       console.error(err);

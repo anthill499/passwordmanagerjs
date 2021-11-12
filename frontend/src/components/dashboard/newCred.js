@@ -10,6 +10,7 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
   const [strength, setStrength] = useState(10);
   const [company, setcompany] = useState("");
   const [clipMessage, setclipMessage] = useState(null);
+  const [backendErrors, setbackendErrors] = useState(null);
   const authGlobal = useContext(AuthContext);
 
   const dictionary = {
@@ -67,7 +68,37 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
     );
     setTimeout(() => setclipMessage(null), 5000);
   };
-  // Create a post request to create
+
+  // Submit Form Handler, POST req
+  const handleSubmit = async (
+    e,
+    url = "/api/cred/new",
+    data = { username: username, password: password }
+  ) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(url, {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const parseResp = await response.json();
+      if (response.ok) {
+        // If the response was okay
+        console.log(parseResp);
+      } else {
+        setbackendErrors(Object.values(parseResp.errors));
+        console.log(parseResp.errors);
+        console.log(backendErrors);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="Credential-Form-Container">
       <img
@@ -77,7 +108,7 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
         onClick={() => setmodalOpen(!modalOpen)}
       />
       <h4 className="Credential-Header">Create a new Credential</h4>
-      <form className="Credential-Form">
+      <form className="Credential-Form" onSubmit={(e) => handleSubmit(e)}>
         <label htmlFor="company">Company Name</label>
         <input
           name="company"
@@ -107,9 +138,8 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
           onChange={(e) => setpassword(e.currentTarget.value)}
           placeholder="Generate a Password"
           readOnly={true}
-          className="Password-Input"
+          className="Password-Input Darken-Input"
         />
-
         <label>Choose a Password Strength! {dictionary[strength]} </label>
         <ul className="Emoji-List">
           <li

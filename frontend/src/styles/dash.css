@@ -16,7 +16,7 @@
   right: 0;
   width: 400px;
   padding: 30px;
-  background-color: #d3d3d3e0;
+  background-color: #d3d3d3f3;
   border-radius: 5px;
 }
 
@@ -91,4 +91,8 @@ button:hover {
 
 .Copied {
   color: green;
+}
+
+.Darken-Input {
+  background-color: #00e1ff1f;
 }

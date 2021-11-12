@@ -24,21 +24,21 @@ router.get("/credentials", authenticateToken, async (req, res) => {
 router.post("/new", authenticateToken, async (req, res) => {
   try {
     const { userId, newPassword, username, companyName } = await req.body;
-    // pass in isLoggedIn eventually !!!
-
-    // Make sure it'll never collide with the same password
+    const cName = await (companyName.charAt(0).toUpperCase() +
+      companyName.slice(1));
     const alreadyExist = await pool.query(
-      "SELECT * FROM users WHERE password = $1",
-      [newPassword]
+      "SELECT * FROM users WHERE company_name = $1 AND author_id = $2",
+      [cName, userId]
     );
 
-    if (!alreadyExist) {
-      return res.status(401).send("Password already exists");
+    if (alreadyExist) {
+      console.log(alreadyExist);
+      res.status(401).json({ errors: "Company already exists" });
     }
 
     const newCred = await pool.query(
       "INSERT INTO combinations (author_id, username, company_name, pw) VALUES ($1, $2, $3, $4) RETURNING *",
-      [userId, username, companyName, newPassword]
+      [userId, username, cName, newPassword]
     );
 
     res.json(newCred.rows[0]);
@@ -76,7 +76,7 @@ router.patch("/credential/update", async (req, res) => {
 });
 
 // Delete a credential, DELETE
-router.delete("/credential/", async (req, res) => {
+router.delete("/credential", async (req, res) => {
   try {
     const { entryId } = await req.body;
     const deleted = await pool.query(
