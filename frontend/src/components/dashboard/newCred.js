@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/Contexts";
 import passwordGenerator from "../../util/passwordGenerator";
+// import { useLocation } from "react-router";
 import "../../styles/dash.css";
 import "../../styles/global.css";
 import "../../styles/auth.css";
@@ -12,7 +13,7 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
   const [clipMessage, setclipMessage] = useState(null);
   const [backendErrors, setbackendErrors] = useState(null);
   const authGlobal = useContext(AuthContext);
-
+  // const location = useLocation();
   const dictionary = {
     10: <span style={{ color: "red" }}>Weak</span>,
     20: <span style={{ color: "#ff7b00" }}>Good</span>,
@@ -68,6 +69,7 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
       const parseResp = await response.json();
       if (response.ok) {
         console.log(parseResp);
+        window.location.reload();
       } else {
         setbackendErrors(parseResp);
       }
@@ -118,7 +120,10 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
           className={backendErrors?.errors?.username ? "Auth-Input" : null}
         />
         <label htmlFor="password">
-          Password {clipMessage && <span>{clipMessage}</span>}
+          {!backendErrors?.errors?.password
+            ? "Generate a Password"
+            : backendErrors?.errors?.password}{" "}
+          {clipMessage && <span>{clipMessage}</span>}
           {password.length > 0 && (
             <img
               src="https://img.icons8.com/material-outlined/24/000000/copy.png"

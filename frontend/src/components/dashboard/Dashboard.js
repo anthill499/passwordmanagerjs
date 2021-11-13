@@ -30,6 +30,7 @@ const Dashboard = () => {
       const parseResp = await response.json();
       if (response.ok) {
         setCreds(parseResp);
+        console.log("hello creds");
       }
     } catch (err) {
       console.error(err.message);
@@ -47,6 +48,15 @@ const Dashboard = () => {
     }
   };
 
+  if (!creds)
+    return (
+      <div class="lds-ring">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    );
   return (
     <Fragment>
       {modalOpen && (

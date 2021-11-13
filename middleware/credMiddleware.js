@@ -12,6 +12,10 @@ async function isValidCred(req, res, next) {
     if (companyName.length === 0) {
       errors["company"] = "Company Name can not be empty";
     }
+
+    if (newPassword.length === 0) {
+      errors["password"] = "Please generate a password!";
+    }
   }
 
   if (Object.values(errors).length > 0) {

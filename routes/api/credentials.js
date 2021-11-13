@@ -22,18 +22,17 @@ router.get("/:id", async (req, res) => {
 // Create a new credential, POST
 router.post("/new", isValidCred, async (req, res) => {
   const removed = false;
+  console.log(req.body);
   try {
     const { userId, newPassword, username, companyName, strength } =
       await req.body;
     const cName = await (companyName.charAt(0).toUpperCase() +
       companyName.slice(1));
-
     const alreadyExist = await pool.query(
       "SELECT * FROM combinations WHERE company_name = $1 AND author_id = $2",
       [cName, userId]
     );
 
-    console.log(alreadyExist);
     if (alreadyExist.rows.length > 0) {
       res.status(401).json({ errors: { company: "Company already exists!" } });
     }
@@ -47,6 +46,7 @@ router.post("/new", isValidCred, async (req, res) => {
   } catch (err) {
     res.status(500).json({ errors: { global: "Could Not Create Credential" } });
   }
+  res.end();
 });
 
 // Fetch(read) a credential, using id of object, GET

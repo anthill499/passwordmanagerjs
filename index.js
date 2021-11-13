@@ -13,9 +13,9 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-console.log(__dirname);
-console.log(path.join(__dirname, "frontend/public"));
-console.log(process.env);
+// console.log(__dirname);
+// console.log(path.join(__dirname, "frontend/public"));
+// console.log(process.env);
 // POOL allows us to run queries on the pool
 // update, delete, insert or seed data
 app.use(bodyParser.json());
