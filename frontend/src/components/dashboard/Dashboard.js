@@ -18,28 +18,30 @@ const Dashboard = () => {
     4: <span style={{ color: "#1ac703" }}>Very Strong</span>,
   };
 
-  const fetchUserCreds = async () => {
-    try {
-      const response = await fetch(`api/cred/${authGlobal.id}`, {
-        method: "get",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      });
-      const parseResp = await response.json();
-      if (response.ok) {
-        setCreds(parseResp);
-        console.log("hello creds");
-      }
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-
   useEffect(() => {
+    const fetchUserCreds = async () => {
+      try {
+        const response = await fetch(`/api/cred/${authGlobal.id}`, {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
+        console.log(response);
+        const parseResp = await response.json();
+        if (response.ok) {
+          setCreds(parseResp);
+          console.log("hello creds");
+        }
+      } catch (err) {
+        console.log(err);
+
+        console.error(err.message);
+      }
+    };
     fetchUserCreds();
-  }, []);
+  }, [creds]);
 
   const handleModalKey = (e) => {
     if (e.key === "Escape") {
@@ -50,7 +52,7 @@ const Dashboard = () => {
 
   if (!creds)
     return (
-      <div class="lds-ring">
+      <div className="lds-ring">
         <div></div>
         <div></div>
         <div></div>

@@ -17,13 +17,13 @@ const dbCred = {
   port: 5432,
   database: "password_manager",
 };
+
 const pool = new Pool(dbCred);
 pool.connect((err) => {
   if (err) {
     console.error("connection error", err.stack);
   } else {
     console.log("Connected to PostgreSQL");
-    console.log(prodCred);
   }
 });
 module.exports = pool;

@@ -3,11 +3,10 @@ const pool = require("../../db");
 const jwtAuthenticater = require("../../util/jwtGenerator");
 const { authenticateToken } = require("../../middleware/authMiddleware");
 const isValidCred = require("../../middleware/credMiddleware");
-// ADD token middleware
+// ADD token middleware = SOON !
 
 // Fetch all credentials, using id of the user, GET
 router.get("/:id", async (req, res) => {
-  // Send id through request from frontend, can ONLY send if logged in.
   try {
     const credentials = await pool.query(
       "SELECT * FROM combinations WHERE author_id = $1",
@@ -22,7 +21,6 @@ router.get("/:id", async (req, res) => {
 // Create a new credential, POST
 router.post("/new", isValidCred, async (req, res) => {
   const removed = false;
-  console.log(req.body);
   try {
     const { userId, newPassword, username, companyName, strength } =
       await req.body;
