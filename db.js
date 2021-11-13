@@ -1,10 +1,9 @@
 // Connects PostgreSQL to NodeJS
 const { Pool } = require("pg");
-const keys = require("./config/prodkeys");
 
 const dbCred = {
   user: "postgres",
-  password: keys.postgrespw,
+  password: process.env.REACT_APP_PG_PW,
   host: "localhost",
   port: 5432,
   database: "password_manager",

@@ -2,7 +2,6 @@
 const express = require("express");
 const app = express();
 const cors = require("cors"); // diff domain apps to interact
-const keys = require("./config/prodkeys");
 const bodyParser = require("body-parser");
 
 // POOL allows us to run queries on the pool

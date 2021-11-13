@@ -1,3 +1,5 @@
 node_modules
 
 devkeys.js
+
+.env
