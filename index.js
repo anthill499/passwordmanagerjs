@@ -4,6 +4,9 @@ const app = express();
 const cors = require("cors"); // diff domain apps to interact
 const bodyParser = require("body-parser");
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
+}
 // POOL allows us to run queries on the pool
 // update, delete, insert or seed data
 app.use(bodyParser.json());
@@ -19,8 +22,9 @@ app.get("/test", (req, res) => {
 app.use("/api/auth", require("./routes/api/users"));
 app.use("/api/cred", require("./routes/api/credentials"));
 
+const port = process.env.PORT || 5000;
 // App Listening On
-app.listen(5000, () => {
+app.listen(port, () => {
   console.log("Hello Jon, My server is running on Port 5000");
 });
 // comment
