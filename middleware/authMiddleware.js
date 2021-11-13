@@ -1,6 +1,5 @@
 // Token Authenticator
 const jwt = require("jsonwebtoken");
-const keys = require("../config/prodkeys");
 
 async function authenticateToken(req, res, next) {
   try {
