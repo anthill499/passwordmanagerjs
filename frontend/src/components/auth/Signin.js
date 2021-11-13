@@ -25,6 +25,7 @@ const Signin = () => {
         },
         body: JSON.stringify(data),
       });
+
       const parseResp = await response.json();
       if (response.ok) {
         authGlobal.login(parseResp);

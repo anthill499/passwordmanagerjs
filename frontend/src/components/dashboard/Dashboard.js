@@ -8,8 +8,8 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 const Dashboard = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [creds, setCreds] = useState(null);
-  const [sortMethod, setSortMethod] = useState(null);
   const authGlobal = useContext(AuthContext);
+  // const [sortMethod, setSortMethod] = useState(null);
 
   const dictionary = {
     1: <span style={{ color: "red" }}>Weak</span>,
@@ -74,7 +74,7 @@ const Dashboard = () => {
               ></path>
             </svg>
           </button>
-          <select className="Dashboard-Select">
+          {/* <select className="Dashboard-Select">
             <option selected style={{ textAlign: "center" }}>
               Sort By
             </option>
@@ -88,7 +88,7 @@ const Dashboard = () => {
             <option onChange={() => setSortMethod("slh")}>
               Strength: Low-High
             </option>
-          </select>
+          </select> */}
         </div>
         <div className="Dashboard-Map">
           <div className="Dashboard-Title">
