@@ -2,6 +2,7 @@ const router = require("express").Router();
 const pool = require("../../db");
 const jwtAuthenticater = require("../../util/jwtGenerator");
 const { authenticateToken } = require("../../middleware/authMiddleware");
+const isValidCred = require("../../middleware/credMiddleware");
 // ADD token middleware
 
 // Fetch all credentials, using id of the user, GET
@@ -19,20 +20,22 @@ router.get("/:id", async (req, res) => {
 });
 
 // Create a new credential, POST
-router.post("/new", async (req, res) => {
+router.post("/new", isValidCred, async (req, res) => {
   const removed = false;
   try {
     const { userId, newPassword, username, companyName, strength } =
       await req.body;
     const cName = await (companyName.charAt(0).toUpperCase() +
       companyName.slice(1));
+
     const alreadyExist = await pool.query(
       "SELECT * FROM combinations WHERE company_name = $1 AND author_id = $2",
       [cName, userId]
     );
 
+    console.log(alreadyExist);
     if (alreadyExist.rows.length > 0) {
-      res.status(401).json({ errors: { global: "Company already exists" } });
+      res.status(401).json({ errors: { company: "Company already exists!" } });
     }
 
     const newCred = await pool.query(
@@ -42,7 +45,7 @@ router.post("/new", async (req, res) => {
 
     res.json(newCred.rows[0]);
   } catch (err) {
-    res.status(500).json({ errors: { global: "Could not create Credential" } });
+    res.status(500).json({ errors: { global: "Could Not Create Credential" } });
   }
 });
 

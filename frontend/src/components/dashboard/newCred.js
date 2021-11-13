@@ -3,14 +3,14 @@ import { AuthContext } from "../../context/Contexts";
 import passwordGenerator from "../../util/passwordGenerator";
 import "../../styles/dash.css";
 import "../../styles/global.css";
-
+import "../../styles/auth.css";
 const CredentialForm = ({ modalOpen, setmodalOpen }) => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [strength, setStrength] = useState(10);
   const [company, setcompany] = useState("");
   const [clipMessage, setclipMessage] = useState(null);
-  //   const [backendErrors, setbackendErrors] = useState(null);
+  const [backendErrors, setbackendErrors] = useState(null);
   const authGlobal = useContext(AuthContext);
 
   const dictionary = {
@@ -55,7 +55,7 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
       strength: strengthDictionary[strength],
     }
   ) => {
-    // e.preventDefault();
+    e.preventDefault();
     try {
       const response = await fetch(url, {
         method: "post",
@@ -67,10 +67,9 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
       });
       const parseResp = await response.json();
       if (response.ok) {
-        // If the response was okay
         console.log(parseResp);
       } else {
-        console.log("we here", parseResp);
+        setbackendErrors(parseResp);
       }
     } catch (error) {
       console.log(error);
@@ -87,19 +86,36 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
       />
       <h4 className="Credential-Header">Create a new Credential</h4>
       <form className="Credential-Form" onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="company">Company Name</label>
+        <label htmlFor="company">
+          {!backendErrors?.errors?.company
+            ? "Company Name"
+            : backendErrors?.errors?.company}
+        </label>
         <input
           name="company"
           value={company}
           onChange={(e) => setcompany(e.currentTarget.value)}
           placeholder="Enter a Company Name"
+          style={{
+            outlineColor: backendErrors?.errors?.company ? "red" : null,
+          }}
+          className={backendErrors?.errors?.company ? "Auth-Input" : null}
         />
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username">
+          {" "}
+          {!backendErrors?.errors?.username
+            ? "Username"
+            : backendErrors?.errors?.username}
+        </label>
         <input
           name="username"
           value={username}
           onChange={(e) => setusername(e.currentTarget.value)}
           placeholder="Pick a username"
+          style={{
+            outlineColor: backendErrors?.errors?.username ? "red" : null,
+          }}
+          className={backendErrors?.errors?.username ? "Auth-Input" : null}
         />
         <label htmlFor="password">
           Password {clipMessage && <span>{clipMessage}</span>}

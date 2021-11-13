@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, Fragment } from "react";
 import { AuthContext } from "../../context/Contexts";
 import "../../styles/dash.css";
 import CredentialForm from "./newCred";
@@ -48,7 +48,7 @@ const Dashboard = () => {
   };
 
   return (
-    <>
+    <Fragment>
       {modalOpen && (
         <CredentialForm modalOpen={modalOpen} setmodalOpen={setmodalOpen} />
       )}
@@ -164,7 +164,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </>
+    </Fragment>
   );
 };
 
