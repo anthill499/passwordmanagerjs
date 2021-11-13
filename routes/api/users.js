@@ -14,7 +14,9 @@ router.post("/signup", isValidInfo, async (req, res) => {
 
     // Similar to ActiveRecord
     if (user.rows.length !== 0) {
-      return res.status(401).json({ errors: ["Username already taken"] });
+      return res
+        .status(401)
+        .json({ errors: { global: "Username already taken!" } });
     }
 
     // If username is unique, bcrypt the input password
@@ -29,7 +31,7 @@ router.post("/signup", isValidInfo, async (req, res) => {
     const token = jwtAuthenticater(currUser.user_id);
     res.json({ token, username: currUser.username, id: currUser.user_id });
   } catch (error) {
-    res.status(500).json({ errors: ["Bad Request"] });
+    res.status(500).json({ errors: { global: "Bad Request" } });
   }
 });
 
@@ -41,11 +43,11 @@ router.post("/signin", isValidInfo, async (req, res) => {
       username,
     ]);
     if (user.rows.length === 0) {
-      res.status(422).json("Invalid Credentials");
+      res.status(422).json({ errors: { global: "Invalid Credentials" } });
     }
     const isValid = await bcrypt.compare(password, user.rows[0].password);
     if (!isValid) {
-      res.status(401).json("Wrong Username/Password");
+      res.status(401).json({ errors: { global: "Wrong Username/Password" } });
     }
 
     const token = jwtAuthenticater(user.rows[0].user_id);
@@ -55,7 +57,7 @@ router.post("/signin", isValidInfo, async (req, res) => {
       id: user.rows[0].user_id,
     });
   } catch (err) {
-    res.status(500).json({ errors: ["Bad Request"] });
+    res.status(500).json({ errors: "Bad Request" });
   }
 });
 

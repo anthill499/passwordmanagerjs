@@ -8,7 +8,7 @@ const Landing = () => {
   return (
     <div className="Landing-Container">
       <h1>Hello, welcome to PasswordManager</h1>
-      <button onClick={() => navigate("/signup", { replace: true })}>
+      <button onClick={() => navigate("/signin", { replace: false })}>
         Let's get started
       </button>
     </div>

@@ -1,5 +1,31 @@
 .Heading-Container {
   background-color: #fafafa;
-  height: 7vh;
+  /* height: 7vh; */
   outline: 1px solid #e2e2e2;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 25px;
+}
+
+.Heading-Container:first-child {
+  font-size: 25px;
+}
+
+.Button-Group {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.Heading-Button:hover {
+  cursor: pointer;
+  background-color: rgba(95, 0, 0, 0.384);
+  transition: 0.25s ease-in;
+}
+
+.Heading-Button {
+  outline: 1px solid #e2e2e2;
+  border-radius: 25px;
+  padding: 10px;
+  background-color: #b9000070;
 }

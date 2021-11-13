@@ -10,7 +10,7 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
   const [strength, setStrength] = useState(10);
   const [company, setcompany] = useState("");
   const [clipMessage, setclipMessage] = useState(null);
-  const [backendErrors, setbackendErrors] = useState(null);
+  //   const [backendErrors, setbackendErrors] = useState(null);
   const authGlobal = useContext(AuthContext);
 
   const dictionary = {
@@ -20,10 +20,15 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
     40: <span style={{ color: "#1ac703" }}>Very Strong</span>,
   };
 
+  const strengthDictionary = {
+    10: 1,
+    20: 2,
+    30: 3,
+    40: 4,
+  };
   const rerollPassword = (e, count) => {
     e.preventDefault();
     const newPw = passwordGenerator(count);
-    console.log(newPw);
     return setpassword(newPw);
   };
 
@@ -32,37 +37,6 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
     navigator.clipboard.writeText(password);
     setclipMessage(
       <span className="Copied">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          width="16"
-          height="16"
-          viewBox="0 0 172 172"
-          style={{ fill: "#000000" }}
-        >
-          <g
-            fill="none"
-            fill-rule="nonzero"
-            stroke="none"
-            stroke-width="1"
-            stroke-linecap="butt"
-            stroke-linejoin="miter"
-            stroke-miterlimit="10"
-            stroke-dasharray=""
-            stroke-dashoffset="0"
-            font-family="none"
-            font-weight="none"
-            font-size="none"
-            text-anchor="none"
-            style={{ mixBlendMode: "normal" }}
-          >
-            <path d="M0,172v-172h172v172z" fill="none"></path>
-            <g fill="#008000">
-              <path d="M86,21.5c-35.55872,0 -64.5,28.9413 -64.5,64.5c0,35.55869 28.94128,64.5 64.5,64.5c35.55872,0 64.5,-28.94131 64.5,-64.5c0,-35.5587 -28.94128,-64.5 -64.5,-64.5zM86,32.25c29.749,0 53.75,24.00103 53.75,53.75c0,29.74897 -24.001,53.75 -53.75,53.75c-29.749,0 -53.75,-24.00103 -53.75,-53.75c0,-29.74897 24.001,-53.75 53.75,-53.75zM112.60205,64.5l-33.59375,33.59375l-17.46875,-17.46875l-7.5166,7.5271l24.98535,24.99585l41.12085,-41.12085z"></path>
-            </g>
-          </g>
-        </svg>
         <span> Copied to Clipboard!</span>
       </span>
     );
@@ -73,9 +47,15 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
   const handleSubmit = async (
     e,
     url = "/api/cred/new",
-    data = { username: username, password: password }
+    data = {
+      userId: authGlobal.id,
+      username: username,
+      newPassword: password,
+      companyName: company,
+      strength: strengthDictionary[strength],
+    }
   ) => {
-    e.preventDefault();
+    // e.preventDefault();
     try {
       const response = await fetch(url, {
         method: "post",
@@ -90,9 +70,7 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
         // If the response was okay
         console.log(parseResp);
       } else {
-        setbackendErrors(Object.values(parseResp.errors));
-        console.log(parseResp.errors);
-        console.log(backendErrors);
+        console.log("we here", parseResp);
       }
     } catch (error) {
       console.log(error);

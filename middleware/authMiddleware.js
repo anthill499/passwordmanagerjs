@@ -21,8 +21,8 @@ async function authenticateToken(req, res, next) {
 async function isValidInfo(req, res, next) {
   const errors = {};
   const { username, password } = await req.body;
-  const regex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/gm;
+  // const regex =
+  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/gm;
 
   // Fill errors hash with errors
   if (req.path === "/signup") {
@@ -31,9 +31,9 @@ async function isValidInfo(req, res, next) {
     } else if (username.length < 8 && username.length !== 0) {
       errors["username"] = "Username is too short. Choose 8 characters";
     }
-    if (!password.match(regex)) {
-      errors["password"] = "Enter a stronger spassword";
-    }
+    // if (!password.match(regex)) {
+    //   errors["password"] = "Enter a stronger password";
+    // }
     if (password.length === 0) {
       errors["password"] = "Password can not be empty";
     }

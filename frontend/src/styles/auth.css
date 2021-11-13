@@ -33,6 +33,14 @@
   transition: 0.5s ease-in-out;
 }
 
+.Backend-Errors {
+  color: red;
+}
+
+.Global-Error {
+  text-align: center;
+}
+
 .Auth-Form form button {
   height: 45px;
   width: 275px;

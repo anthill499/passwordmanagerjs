@@ -18,6 +18,7 @@
   padding: 30px;
   background-color: #d3d3d3f3;
   border-radius: 5px;
+  z-index: 9999;
 }
 
 .Credential-Form {
@@ -53,15 +54,6 @@ button:hover {
   opacity: 0.6;
 }
 
-/* .Password-Input {
-  display: flex;
-  flex-direction: column;
-}
-
-.Password-Input img {
-  font-size: 10px;
-} */
-
 .Clipboard {
   position: absolute;
   margin: auto;
@@ -95,4 +87,66 @@ button:hover {
 
 .Darken-Input {
   background-color: #00e1ff1f;
+}
+
+.Dashboard-Map {
+  width: 65vw;
+  background-color: #e3e3e366;
+  margin-top: 8px;
+  border-radius: 5px;
+}
+
+.Dashboard-Title {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.Cred-Row {
+  display: flex;
+}
+
+h3 {
+  text-align: center;
+}
+
+h4 {
+  font-size: 2vw;
+  margin: 15px;
+}
+
+.Cred-List {
+  padding: 0px;
+  min-height: 28px;
+}
+
+.Cred-List-Input {
+  list-style: none;
+  padding: 0px;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.Cred-Button {
+  padding: 0px 40px;
+  border: none;
+  outline: 0.5px solid rgb(206, 206, 206);
+  outline-style: dashed;
+}
+
+/* #Removed {
+} */
+
+.Class li {
+  text-align: center !important;
+}
+
+.Dashboard-Buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.Dashboard-Select {
+  background-color: #b9000070;
+  border-radius: 5px;
+  padding-left: 5px;
 }

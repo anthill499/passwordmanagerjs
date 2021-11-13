@@ -33,7 +33,8 @@ const Signup = () => {
         authGlobal.login(parseResp);
         localStorage.setItem("user", JSON.stringify(parseResp));
       } else {
-        setbackendErrors(Object.values(parseResp.errors));
+        setbackendErrors(parseResp);
+        console.log(parseResp);
       }
     } catch (err) {
       console.error(err);
@@ -42,31 +43,46 @@ const Signup = () => {
 
   return (
     <div className="Auth-Form">
-      <h4>Get started today!</h4>
+      <h4>
+        {!backendErrors?.errors?.global
+          ? "Get started today!"
+          : backendErrors?.errors?.global}{" "}
+      </h4>
       <form>
-        <label htmlFor="username">Username</label>
+        <label htmlFor="username">
+          {!backendErrors?.errors?.username
+            ? "Enter a Username"
+            : backendErrors?.errors?.username}
+        </label>
         <input
           name="username"
           value={username}
           onChange={(e) => setusername(e.currentTarget.value)}
           placeholder="Enter a username"
           style={{
-            outlineColor: backendErrors?.length >= 1 ? "red" : null,
+            outlineColor: backendErrors?.errors?.username ? "red" : null,
           }}
-          className={backendErrors?.length >= 1 ? "Auth-Input" : null}
+          className={backendErrors?.errors?.username ? "Auth-Input" : null}
         />
-        {/* {backendErrors?.[backendErrors?.indexOf("Username can not be empty")]} */}
-        <label htmlFor="password">Password</label>
+
+        <label htmlFor="password">
+          {" "}
+          {!backendErrors?.errors?.password
+            ? "Enter a Password"
+            : backendErrors?.errors?.password}
+        </label>
         <input
           type="password"
           name="password"
           value={password}
           onChange={(e) => setpassword(e.currentTarget.value)}
           placeholder="Enter a strong password"
-          style={{ outlineColor: backendErrors?.length >= 1 ? "red" : null }}
-          className={backendErrors?.length >= 1 ? "Auth-Input" : null}
+          style={{
+            outlineColor: backendErrors?.errors?.password ? "red" : null,
+          }}
+          className={backendErrors?.errors?.password ? "Auth-Input" : null}
         />
-        {/* {backendErrors?.[backendErrors?.indexOf("Password can not be empty")]} */}
+
         <div className="Auth-Button-Group">
           <button onClick={(e) => handleSignup(e)}>Create Account</button>
           <button onClick={() => navigate("/signin", { replace: true })}>

@@ -5,15 +5,13 @@ const { authenticateToken } = require("../../middleware/authMiddleware");
 // ADD token middleware
 
 // Fetch all credentials, using id of the user, GET
-router.get("/credentials", authenticateToken, async (req, res) => {
+router.get("/:id", async (req, res) => {
   // Send id through request from frontend, can ONLY send if logged in.
   try {
-    const { userId } = await req.body;
     const credentials = await pool.query(
       "SELECT * FROM combinations WHERE author_id = $1",
-      [userId]
+      [req.params.id]
     );
-
     res.json(credentials.rows);
   } catch (err) {
     res.status(500).json({ message: "Invalid Request" });
@@ -21,29 +19,30 @@ router.get("/credentials", authenticateToken, async (req, res) => {
 });
 
 // Create a new credential, POST
-router.post("/new", authenticateToken, async (req, res) => {
+router.post("/new", async (req, res) => {
+  const removed = false;
   try {
-    const { userId, newPassword, username, companyName } = await req.body;
+    const { userId, newPassword, username, companyName, strength } =
+      await req.body;
     const cName = await (companyName.charAt(0).toUpperCase() +
       companyName.slice(1));
     const alreadyExist = await pool.query(
-      "SELECT * FROM users WHERE company_name = $1 AND author_id = $2",
+      "SELECT * FROM combinations WHERE company_name = $1 AND author_id = $2",
       [cName, userId]
     );
 
-    if (alreadyExist) {
-      console.log(alreadyExist);
-      res.status(401).json({ errors: "Company already exists" });
+    if (alreadyExist.rows.length > 0) {
+      res.status(401).json({ errors: { global: "Company already exists" } });
     }
 
     const newCred = await pool.query(
-      "INSERT INTO combinations (author_id, username, company_name, pw) VALUES ($1, $2, $3, $4) RETURNING *",
-      [userId, username, cName, newPassword]
+      "INSERT INTO combinations (author_id, username, company_name, pw, strength, removed) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [userId, username, cName, newPassword, strength, removed]
     );
 
     res.json(newCred.rows[0]);
   } catch (err) {
-    res.status(500).json({ message: "Could not create Credential" });
+    res.status(500).json({ errors: { global: "Could not create Credential" } });
   }
 });
 
