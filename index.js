@@ -27,9 +27,9 @@ app.get("/test", (req, res) => {
   res.json({ message: "It's working" });
 });
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend/build/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "frontend/build/index.html"));
+// });
 
 // Routes
 app.use("/api/auth", require("./routes/api/users"));

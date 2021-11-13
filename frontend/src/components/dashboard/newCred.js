@@ -88,7 +88,10 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
       />
       <h4 className="Credential-Header">Create a new Credential</h4>
       <form className="Credential-Form" onSubmit={(e) => handleSubmit(e)}>
-        <label htmlFor="company">
+        <label
+          htmlFor="company"
+          style={{ color: backendErrors?.errors?.company ? "red" : null }}
+        >
           {!backendErrors?.errors?.company
             ? "Company Name"
             : backendErrors?.errors?.company}
@@ -100,10 +103,14 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
           placeholder="Enter a Company Name"
           style={{
             outlineColor: backendErrors?.errors?.company ? "red" : null,
+            color: backendErrors?.errors?.company ? "red" : null,
           }}
           className={backendErrors?.errors?.company ? "Auth-Input" : null}
         />
-        <label htmlFor="username">
+        <label
+          htmlFor="username"
+          style={{ color: backendErrors?.errors?.username ? "red" : null }}
+        >
           {" "}
           {!backendErrors?.errors?.username
             ? "Username"
@@ -116,10 +123,14 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
           placeholder="Pick a username"
           style={{
             outlineColor: backendErrors?.errors?.username ? "red" : null,
+            color: backendErrors?.errors?.username ? "red" : null,
           }}
           className={backendErrors?.errors?.username ? "Auth-Input" : null}
         />
-        <label htmlFor="password">
+        <label
+          htmlFor="password"
+          style={{ color: backendErrors?.errors?.password ? "red" : null }}
+        >
           {!backendErrors?.errors?.password
             ? "Generate a Password"
             : backendErrors?.errors?.password}{" "}

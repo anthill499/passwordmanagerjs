@@ -16,6 +16,7 @@ function App() {
     AuthReducer,
     initialState
   );
+
   return (
     <AuthContext.Provider
       value={{

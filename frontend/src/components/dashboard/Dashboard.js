@@ -9,6 +9,7 @@ const Dashboard = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [creds, setCreds] = useState(null);
   const authGlobal = useContext(AuthContext);
+  const [currUser, setcurrUser] = useState(null);
   // const [sortMethod, setSortMethod] = useState(null);
 
   const dictionary = {
@@ -19,29 +20,25 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    setcurrUser(authGlobal.id);
+  }, [authGlobal]);
+
+  useEffect(() => {
     const fetchUserCreds = async () => {
       try {
-        const response = await fetch(`/api/cred/${authGlobal.id}`, {
-          method: "get",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        });
-        console.log(response);
+        const response = await fetch(`/api/cred/${currUser}`);
         const parseResp = await response.json();
+        console.log(parseResp);
         if (response.ok) {
           setCreds(parseResp);
           console.log("hello creds");
         }
       } catch (err) {
-        console.log(err);
-
         console.error(err.message);
       }
     };
     fetchUserCreds();
-  }, [creds]);
+  }, [currUser]);
 
   const handleModalKey = (e) => {
     if (e.key === "Escape") {
@@ -59,6 +56,7 @@ const Dashboard = () => {
         <div></div>
       </div>
     );
+
   return (
     <Fragment>
       {modalOpen && (
