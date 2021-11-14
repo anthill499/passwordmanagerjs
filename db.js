@@ -23,6 +23,8 @@ pool.connect((err) => {
     console.error("connection error", err.stack);
   } else {
     console.log("Connected to PostgreSQL");
+    console.log(process.env)
   }
 });
+
 module.exports = pool;
