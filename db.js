@@ -17,7 +17,7 @@ const configuration =
         connectionString: process.env.DATABASE_URL,
       };
 
-const pool = new Pool(dbCred);
+const pool = new Pool(configuration);
 pool.connect((err) => {
   if (err) {
     console.error("connection error", err.stack);
