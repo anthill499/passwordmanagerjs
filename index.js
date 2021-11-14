@@ -14,6 +14,17 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+app.get("/", function (req, res) {
+  res.sendFile(
+    path.join(__dirname, "frontend/public/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
+});
+
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
@@ -27,6 +38,6 @@ app.get("/test", (req, res) => {
 app.use("/api/auth", require("./routes/api/users"));
 app.use("/api/cred", require("./routes/api/credentials"));
 
-app.listen(3000, () => {
-  console.log(`Hello Jon, My server is running on Port ${3000}`);
+app.listen(port, () => {
+  console.log(`Hello Jon, My server is running on Port ${port}`);
 });
