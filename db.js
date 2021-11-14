@@ -11,7 +11,7 @@ const dbCred = {
 };
 
 const configuration =
-  !process.env.NODE_ENV === "production"
+  process.env.NODE_ENV === "development"
     ? dbCred
     : {
         connectionString: process.env.DATABASE_URL,
