@@ -31,7 +31,7 @@
   }
 }
 
-button {
+.Landing-Button {
   height: 45px;
   width: 275px;
   border-radius: 25px;
@@ -49,7 +49,7 @@ button {
   color: white;
 }
 
-button:hover {
+.Landing-Button:hover {
   filter: brightness(1.2);
   transition: 0.5s ease-in-out;
   outline: 1px solid rgb(138, 116, 116);
