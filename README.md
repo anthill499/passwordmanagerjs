@@ -16,4 +16,6 @@ and generate random passwords based on strength.
   - uuid
   - jsonwebtoken
   - Material UI Icons
+  - React Router
+ 
   
