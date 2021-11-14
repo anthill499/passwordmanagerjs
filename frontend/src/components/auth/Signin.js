@@ -44,7 +44,6 @@ const Signin = () => {
           ? "Sign in to your account!"
           : backendErrors?.errors?.global}{" "}
       </h4>
-
       <form>
         <label
           htmlFor="username"
@@ -66,9 +65,12 @@ const Signin = () => {
           }}
           className={backendErrors?.errors?.username ? "Auth-Input" : null}
         />
-        <label htmlFor="password" style={{
+        <label
+          htmlFor="password"
+          style={{
             color: backendErrors?.errors?.password ? "red" : null,
-          }}>
+          }}
+        >
           {" "}
           {!backendErrors?.errors?.password
             ? "Enter a Password"
