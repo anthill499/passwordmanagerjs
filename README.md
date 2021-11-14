@@ -1,15 +1,16 @@
 # Welcome to 🗝️PasswordManager !
 
-**PasswordManager** is a credentials management platform where logged-in users can save their login credentials 
-and generate random passwords based on strength. 
+**PasswordManager** is a credentials management platform where logged-in users can save their login credentials
+and generate random passwords based on strength.
 
-## ⚙️ Technologies Used 
+## ⚙️ Technologies Used
+
 - **JavaScript**
   - React (Hooks)
   - Node.js
   - Express.js
-  - BCrypt.js 
-- **PostgreSQL** as SQL Database 
+  - BCrypt.js
+- **PostgreSQL** as SQL Database
 - HTML/CSS/JavaScript
 - **Heroku** as deployment platform
 - Additional Modules/Libraries
@@ -17,17 +18,21 @@ and generate random passwords based on strength.
   - jsonwebtoken
   - Material UI Icons
   - React Router
- 
+
 ## 🔗 Functionality/MVP
+
 1. User Authentication/Authorization
-  - A user should be able to create an account
-  - A user should be able to sign in to an existing account
-  - A logged-in user should be bootstrapped using localStorage
-  - A user's API endpoints, should be validated using **jsonwebtoken** in Express.js middleware
+
+- A user should be able to create an account
+- A user should be able to sign in to an existing account
+- A logged-in user should be bootstrapped using localStorage
+- A user's API endpoints, should be validated using **jsonwebtoken** in Express.js middleware
+
 2. Credentials
-  - A logged-in user should be able to generate a random password based on password strength
-  - A logged-in user should be able to click and choose password strength
-  - A logged-in user should be able to see their own created credentials on the dashboard
+
+- A logged-in user should be able to generate a random password based on password strength
+- A logged-in user should be able to click and choose password strength
+- A logged-in user should be able to see their own created credentials on the dashboard
 
 ## 🤖 Favorite Code Snippet
 
@@ -57,6 +62,7 @@ const genStrong = (count) => {
 
 export default passwordGenerator;
 ```
+
 ```javascript
 import React, { useContext, useState, useEffect, Fragment } from "react";
 import { AuthContext } from "../../context/Contexts";
@@ -69,7 +75,7 @@ const Dashboard = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [creds, setCreds] = useState(null);
   const authGlobal = useContext(AuthContext);
-  
+
   const dictionary = {
     1: <span style={{ color: "red" }}>Weak</span>,
     2: <span style={{ color: "#ff7b00" }}>Good</span>,
@@ -85,7 +91,6 @@ const Dashboard = () => {
         if (response.ok) {
           setCreds(parseResp);
         }
-        console.log(parseResp);
       } catch (err) {
         console.error(err.message);
       }
@@ -229,23 +234,35 @@ export default Dashboard;
 ```
 
 ## 💪 Challenges Faced/Solutions
+
 ### Problem: First exposure to making a full stack application with a SQL Database and a Node.js backend
+
 - Learned to create database schemas, tables, columns with appropriate datatype to integrate into Node.js
 - Learned more about environmental variables in connection between Node.js and PostgreSQL
 - Implemented own frontend form input validation in user authentication using Express.js middleware
+
 ### Problem: Difficulty understanding useEffect React hook
-- Learned and implemented optional chaining ```?.```, null catches with a spinner as a replacement
-### Problem: Knowing whether or not to hold values globally ```useContext/useReducer``` or locally ```useState```.
-- Determined whether or not every component requires the information. Specifically, the credentials are only utilized in the dashboard, meaning that only 1 ```GET``` request is necessary locally and that local state information can be passed into another functional component through props. 
+
+- Learned and implemented optional chaining `?.`, null catches with a spinner as a replacement
+
+### Problem: Knowing whether or not to hold values globally `useContext/useReducer` or locally `useState`.
+
+- Determined whether or not every component requires the information. Specifically, the credentials are only utilized in the dashboard, meaning that only 1 `GET` request is necessary locally and that local state information can be passed into another functional component through props.
 
 ## 💡 Future Implementations
+
 ### More credential CRUD functionality
-- A patch request to update ```removed``` status on a credential
+
+- A patch request to update `removed` status on a credential
 - A delete request to delete a credential
-- A get request to get a specific credential by ```author_id``` and ```entry_id```
+- A get request to get a specific credential by `author_id` and `entry_id`
+
 ### Sorting credentials on dashboard
+
 - Implementing a select dropdown that changes the order in which the credentials appear based on a criteria
 - Selecting the sorting method should re-render the screen right away
+
 ### Express middleware
+
 - Have a stronger/functioning jsonwebtoken express middleware for actual authentication
 - Change the current user authorization middleware to a middleware that resembles a Mongoose validator prior to hitting the API endpoint
