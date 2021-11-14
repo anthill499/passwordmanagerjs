@@ -82,95 +82,84 @@ const Dashboard = () => {
               ></path>
             </svg>
           </button>
-          {/* <select className="Dashboard-Select">
-            <option selected style={{ textAlign: "center" }}>
-              Sort By
-            </option>
-            <option onChange={() => setSortMethod("aza")}>A-Z Ascending</option>
-            <option onChange={() => setSortMethod("azd")}>
-              A-Z Descending
-            </option>
-            <option onChange={() => setSortMethod("shl")}>
-              Strength: High-Low
-            </option>
-            <option onChange={() => setSortMethod("slh")}>
-              Strength: Low-High
-            </option>
-          </select> */}
         </div>
-        <div className="Dashboard-Map">
-          <div className="Dashboard-Title">
-            <div>
-              <h3>Company Name</h3>
-              <ul className="Cred-List">
-                {creds?.map((cred, i) => (
-                  <li className="Cred-List-Input" key={i}>
-                    {cred.company_name}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3>Username</h3>
-              <ul className="Cred-List">
-                {creds?.map((cred, i) => (
-                  <li className="Cred-List-Input" key={i}>
-                    {cred.username}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3>Your Password</h3>
-              <ul className="Cred-List">
-                {creds?.map((cred, i) => (
-                  <li className="Cred-List-Input" key={i}>
-                    {cred.pw}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3>Password Strength</h3>
-              <ul className="Cred-List">
-                {creds?.map((cred, i) => (
-                  <li className="Cred-List-Input" key={i}>
-                    {dictionary[cred.strength]}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <h3>Removed</h3>
-              <ul className="Cred-List Class" style={{ textAlign: "center" }}>
-                {creds?.map((cred, i) => {
-                  const removedStatus = cred.removed.toString();
-                  return (
+        {creds?.length === 0 ? (
+          <h3 id="First-Cred">Create Your First Credential!</h3>
+        ) : (
+          <div className="Dashboard-Map">
+            <div className="Dashboard-Title">
+              <div>
+                <h3>Company Name</h3>
+                <ul className="Cred-List">
+                  {creds?.map((cred, i) => (
                     <li className="Cred-List-Input" key={i}>
-                      {removedStatus === "true" ? (
-                        <CheckCircleIcon
-                          style={{
-                            color: "green",
-                            fontSize: "small",
-                            textAlign: "center",
-                          }}
-                        />
-                      ) : (
-                        <RadioButtonUncheckedIcon
-                          style={{
-                            color: "#b90000",
-                            fontSize: "small",
-                            textAlign: "center",
-                          }}
-                        />
-                      )}
+                      {cred.company_name}
                     </li>
-                  );
-                })}
-              </ul>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3>Username</h3>
+                <ul className="Cred-List">
+                  {creds?.map((cred, i) => (
+                    <li className="Cred-List-Input" key={i}>
+                      {cred.username}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3>Your Password</h3>
+                <ul className="Cred-List">
+                  {creds?.map((cred, i) => (
+                    <li className="Cred-List-Input" key={i}>
+                      {cred.pw}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3>Password Strength</h3>
+                <ul className="Cred-List">
+                  {creds?.map((cred, i) => (
+                    <li className="Cred-List-Input" key={i}>
+                      {dictionary[cred.strength]}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3>Removed</h3>
+                <ul className="Cred-List Class" style={{ textAlign: "center" }}>
+                  {creds?.map((cred, i) => {
+                    const removedStatus = cred.removed.toString();
+                    return (
+                      <li className="Cred-List-Input" key={i}>
+                        {removedStatus === "true" ? (
+                          <CheckCircleIcon
+                            style={{
+                              color: "green",
+                              fontSize: "small",
+                              textAlign: "center",
+                            }}
+                          />
+                        ) : (
+                          <RadioButtonUncheckedIcon
+                            style={{
+                              color: "#b90000",
+                              fontSize: "small",
+                              textAlign: "center",
+                            }}
+                          />
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </Fragment>
   );

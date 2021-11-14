@@ -138,8 +138,12 @@ input:hover {
   outline-style: dashed;
 }
 
-/* #Removed {
-} */
+#First-Cred {
+  text-align: center;
+    font-size: 25px;
+    padding: 25px;
+    background-color: #b900001f;
+}
 
 .Class li {
   text-align: center !important;
