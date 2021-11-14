@@ -30,9 +30,7 @@ async function isValidInfo(req, res, next) {
     } else if (username.length < 8 && username.length !== 0) {
       errors["username"] = "Username is too short. Choose 8 characters";
     }
-    // if (!password.match(regex)) {
-    //   errors["password"] = "Enter a stronger password";
-    // }
+
     if (password.length === 0) {
       errors["password"] = "Password can not be empty";
     }

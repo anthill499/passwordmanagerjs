@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [creds, setCreds] = useState(null);
   const authGlobal = useContext(AuthContext);
-  // const [sortMethod, setSortMethod] = useState(null);
+  
   const dictionary = {
     1: <span style={{ color: "red" }}>Weak</span>,
     2: <span style={{ color: "#ff7b00" }}>Good</span>,
