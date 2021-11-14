@@ -52,7 +52,12 @@ const Dashboard = () => {
   return (
     <Fragment>
       {modalOpen && (
-        <CredentialForm modalOpen={modalOpen} setmodalOpen={setmodalOpen} setCreds={setCreds} creds={creds}/>
+        <CredentialForm
+          modalOpen={modalOpen}
+          setmodalOpen={setmodalOpen}
+          setCreds={setCreds}
+          creds={creds}
+        />
       )}
       <div className="Dashboard-Container" onKeyUp={(e) => handleModalKey(e)}>
         <h4>{authGlobal.username}'s Dashboard</h4>

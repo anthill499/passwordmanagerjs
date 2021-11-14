@@ -75,6 +75,7 @@ const CredentialForm = ({ modalOpen, setmodalOpen, setCreds, creds }) => {
         console.log(creds);
         const newCreds = await creds.concat(parseResp); // ParseResp is also an array
         setCreds(newCreds);
+        setmodalOpen(!modalOpen);
       } else {
         setbackendErrors(parseResp);
       }
@@ -101,7 +102,6 @@ const CredentialForm = ({ modalOpen, setmodalOpen, setCreds, creds }) => {
             ? "Company Name"
             : backendErrors?.errors?.company}
         </label>
-        {/* com */}
         <input
           name="company"
           value={company}
