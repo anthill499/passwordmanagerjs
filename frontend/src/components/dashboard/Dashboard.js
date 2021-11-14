@@ -9,9 +9,7 @@ const Dashboard = () => {
   const [modalOpen, setmodalOpen] = useState(false);
   const [creds, setCreds] = useState(null);
   const authGlobal = useContext(AuthContext);
-  const [currUser, setcurrUser] = useState(null);
   // const [sortMethod, setSortMethod] = useState(null);
-
   const dictionary = {
     1: <span style={{ color: "red" }}>Weak</span>,
     2: <span style={{ color: "#ff7b00" }}>Good</span>,
@@ -20,32 +18,19 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    setcurrUser(authGlobal.id);
-  }, [authGlobal]);
-
-  useEffect(() => {
     const fetchUserCreds = async () => {
       try {
-        const response = await fetch(`/api/cred/${currUser}`);
+        const response = await fetch(`/api/cred/${authGlobal.id}`);
         const parseResp = await response.json();
-        console.log(parseResp);
         if (response.ok) {
           setCreds(parseResp);
-          console.log("hello creds");
         }
       } catch (err) {
         console.error(err.message);
       }
     };
     fetchUserCreds();
-  }, [currUser]);
-
-  const handleModalKey = (e) => {
-    if (e.key === "Escape") {
-      if (!modalOpen) return;
-      setmodalOpen(!modalOpen);
-    }
-  };
+  }, [authGlobal]);
 
   if (!creds)
     return (
@@ -57,10 +42,17 @@ const Dashboard = () => {
       </div>
     );
 
+  const handleModalKey = (e) => {
+    if (e.key === "Escape") {
+      if (!modalOpen) return;
+      setmodalOpen(!modalOpen);
+    }
+  };
+
   return (
     <Fragment>
       {modalOpen && (
-        <CredentialForm modalOpen={modalOpen} setmodalOpen={setmodalOpen} />
+        <CredentialForm modalOpen={modalOpen} setmodalOpen={setmodalOpen} setCreds={setCreds} creds={creds}/>
       )}
       <div className="Dashboard-Container" onKeyUp={(e) => handleModalKey(e)}>
         <h4>{authGlobal.username}'s Dashboard</h4>

@@ -5,7 +5,8 @@ import passwordGenerator from "../../util/passwordGenerator";
 import "../../styles/dash.css";
 import "../../styles/global.css";
 import "../../styles/auth.css";
-const CredentialForm = ({ modalOpen, setmodalOpen }) => {
+
+const CredentialForm = ({ modalOpen, setmodalOpen, setCreds, creds }) => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [strength, setStrength] = useState(10);
@@ -13,6 +14,7 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
   const [clipMessage, setclipMessage] = useState(null);
   const [backendErrors, setbackendErrors] = useState(null);
   const authGlobal = useContext(AuthContext);
+
   // const location = useLocation();
   const dictionary = {
     10: <span style={{ color: "red" }}>Weak</span>,
@@ -27,6 +29,7 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
     30: 3,
     40: 4,
   };
+
   const rerollPassword = (e, count) => {
     e.preventDefault();
     const newPw = passwordGenerator(count);
@@ -69,7 +72,9 @@ const CredentialForm = ({ modalOpen, setmodalOpen }) => {
       const parseResp = await response.json();
       if (response.ok) {
         console.log(parseResp);
-        window.location.reload();
+        console.log(creds);
+        const newCreds = await creds.concat(parseResp); // ParseResp is also an array
+        setCreds(newCreds);
       } else {
         setbackendErrors(parseResp);
       }
