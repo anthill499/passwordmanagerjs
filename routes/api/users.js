@@ -6,6 +6,7 @@ const { isValidInfo } = require("../../middleware/authMiddleware");
 
 // Registering /POST
 router.post("/signup", isValidInfo, async (req, res) => {
+  console.log("hit 1");
   try {
     const { username, password } = req.body;
     const user = await pool.query("SELECT * FROM users WHERE username = $1", [
@@ -49,6 +50,7 @@ router.post("/signin", isValidInfo, async (req, res) => {
     if (!isValid) {
       res.status(401).json({ errors: { global: "Wrong Username/Password" } });
     }
+    debugger;
 
     const token = jwtAuthenticater(user.rows[0].user_id);
     res.json({

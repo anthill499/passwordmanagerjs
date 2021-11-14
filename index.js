@@ -5,8 +5,7 @@ const app = express();
 const cors = require("cors"); // diff domain apps to interact
 const bodyParser = require("body-parser");
 const path = require("path");
-const port =
-  process.env.NODE_ENV === "production" ? process.env.PORT || 5000 : 5000;
+const port = process.env.NODE_ENV === "production" ? process.env.PORT : 5000;
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("frontend/build"));
@@ -14,9 +13,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
   });
 }
-
-console.log(__dirname);
-console.log(path.join(__dirname, "frontend/build"));
 
 app.use(bodyParser.json());
 app.use(express.json());
@@ -31,10 +27,6 @@ app.get("/test", (req, res) => {
 app.use("/api/auth", require("./routes/api/users"));
 app.use("/api/cred", require("./routes/api/credentials"));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend/build/index.html"));
-});
-
-app.listen(port, () => {
-  console.log(`Hello Jon, My server is running on Port ${port}`);
+app.listen(3000, () => {
+  console.log(`Hello Jon, My server is running on Port ${3000}`);
 });
