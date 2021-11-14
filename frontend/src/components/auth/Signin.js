@@ -12,12 +12,11 @@ const Signin = () => {
   const navigate = useNavigate();
   const handleSignin = async (
     e,
-    url = "/api/auth/signin",
     data = { username: username, password: password }
   ) => {
     e.preventDefault();
     try {
-      const response = await fetch(url, {
+      const response = await fetch("/api/auth/signin", {
         method: "post",
         headers: {
           "Content-Type": "application/json",
@@ -83,6 +82,16 @@ const Signin = () => {
           <button onClick={(e) => handleSignin(e)}>Sign In</button>
           <button onClick={() => navigate("/signup", { replace: true })}>
             Don't have an account?
+          </button>
+          <button
+            onClick={(e) =>
+              handleSignin(e, {
+                username: "anthill499",
+                password: "passwordQ!1",
+              })
+            }
+          >
+            Demo User
           </button>
         </div>
       </form>
