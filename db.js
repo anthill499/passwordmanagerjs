@@ -2,14 +2,6 @@
 const { Pool } = require("pg");
 const dotenv = require("dotenv");
 
-// const prodCred = {
-//   user: process.env.USER,
-//   password: process.env.PG_PW,
-//   host: process.env.HOST,
-//   port: process.env.PORT,
-//   database: process.env.DB,
-// };
-
 const dbCred = {
   user: "postgres",
   password: 1235,
@@ -17,8 +9,13 @@ const dbCred = {
   port: 5432,
   database: "password_manager",
 };
-
-const pool = new Pool(dbCred);
+const configuration =
+  process.env.NODE_ENV === "development"
+    ? dbCred
+    : {
+        connectionString: process.env.DATABASE_URL,
+      };
+const pool = new Pool(configuration);
 pool.connect((err) => {
   if (err) {
     console.error("connection error", err.stack);
