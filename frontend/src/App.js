@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Landing from "./components/landing/Landing";
 import Signup from "./components/auth/Signup";
 import Signin from "./components/auth/Signin";
@@ -25,7 +25,7 @@ function App() {
         logout: () => dispatchAuthReducer(logout()),
       }}
     >
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           <Route
             path="/"
@@ -61,7 +61,7 @@ function App() {
             }
           />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </AuthContext.Provider>
   );
 }
