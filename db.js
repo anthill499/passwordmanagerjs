@@ -14,6 +14,7 @@ const configuration =
     ? dbCred
     : {
         connectionString: process.env.DATABASE_URL,
+        ssl: true,
       };
 const pool = new Pool(configuration);
 pool.connect((err) => {
