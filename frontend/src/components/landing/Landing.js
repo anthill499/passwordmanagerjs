@@ -6,7 +6,7 @@ const Landing = () => {
 
   return (
     <div className="Landing-Container">
-      <h1 class="typing-demo">Hello, welcome to PasswordManager</h1>
+      <h1 class="typing-demo">Hello, welcome to PasswordManager </h1>
       <button
         className="Landing-Button"
         onClick={() => navigate("/signin", { replace: false })}
