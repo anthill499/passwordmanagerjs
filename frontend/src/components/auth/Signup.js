@@ -48,7 +48,12 @@ const Signup = () => {
           : backendErrors?.errors?.global}{" "}
       </h4>
       <form>
-        <label htmlFor="username">
+        <label
+          htmlFor="username"
+          style={{
+            color: backendErrors?.errors?.username ? "red" : null,
+          }}
+        >
           {!backendErrors?.errors?.username
             ? "Enter a Username"
             : backendErrors?.errors?.username}
@@ -64,7 +69,12 @@ const Signup = () => {
           className={backendErrors?.errors?.username ? "Auth-Input" : null}
         />
 
-        <label htmlFor="password">
+        <label
+          htmlFor="password"
+          style={{
+            color: backendErrors?.errors?.password ? "red" : null,
+          }}
+        >
           {" "}
           {!backendErrors?.errors?.password
             ? "Enter a Password"

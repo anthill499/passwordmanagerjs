@@ -46,7 +46,12 @@ const Signin = () => {
       </h4>
 
       <form>
-        <label htmlFor="username">
+        <label
+          htmlFor="username"
+          style={{
+            color: backendErrors?.errors?.username ? "red" : null,
+          }}
+        >
           {!backendErrors?.errors?.username
             ? "Enter a Username"
             : backendErrors?.errors?.username}
@@ -61,7 +66,9 @@ const Signin = () => {
           }}
           className={backendErrors?.errors?.username ? "Auth-Input" : null}
         />
-        <label htmlFor="password">
+        <label htmlFor="password" style={{
+            color: backendErrors?.errors?.password ? "red" : null,
+          }}>
           {" "}
           {!backendErrors?.errors?.password
             ? "Enter a Password"
@@ -83,7 +90,16 @@ const Signin = () => {
           <button onClick={() => navigate("/signup", { replace: true })}>
             Don't have an account?
           </button>
-          <div>HELLO</div>
+          <button
+            onClick={(e) =>
+              handleSignin(e, {
+                username: "newUser123",
+                password: "passwordQ!1",
+              })
+            }
+          >
+            Demo User
+          </button>
         </div>
       </form>
     </div>
