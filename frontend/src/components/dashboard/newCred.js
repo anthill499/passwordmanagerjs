@@ -71,8 +71,6 @@ const CredentialForm = ({ modalOpen, setmodalOpen, setCreds, creds }) => {
       });
       const parseResp = await response.json();
       if (response.ok) {
-        console.log(parseResp);
-        console.log(creds);
         const newCreds = await creds.concat(parseResp); // ParseResp is also an array
         setCreds(newCreds);
         setmodalOpen(!modalOpen);

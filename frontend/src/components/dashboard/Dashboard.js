@@ -25,6 +25,7 @@ const Dashboard = () => {
         if (response.ok) {
           setCreds(parseResp);
         }
+        console.log(parseResp);
       } catch (err) {
         console.error(err.message);
       }

@@ -6,23 +6,17 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const port = process.env.NODE_ENV === "production" ? process.env.PORT : 3000;
 
-// if (process.env.NODE_ENV === "production") {
 app.use(express.static("frontend/build"));
-app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+app.get("/*", function (req, res) {
+  res.sendFile(
+    path.join(__dirname, "frontend/build/index.html"),
+    function (err) {
+      if (err) {
+        res.status(500).send(err);
+      }
+    }
+  );
 });
-// }
-
-// app.get("/", function (req, res) {
-//   res.sendFile(
-//     path.join(__dirname, "frontend/public/index.html"),
-//     function (err) {
-//       if (err) {
-//         res.status(500).send(err);
-//       }
-//     }
-//   );
-// });
 
 app.use(express.json());
 app.use(cors());

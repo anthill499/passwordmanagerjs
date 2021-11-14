@@ -83,16 +83,7 @@ const Signin = () => {
           <button onClick={() => navigate("/signup", { replace: true })}>
             Don't have an account?
           </button>
-          <button
-            onClick={(e) =>
-              handleSignin(e, {
-                username: "anthill499",
-                password: "passwordQ!1",
-              })
-            }
-          >
-            Demo User
-          </button>
+          <div>HELLO</div>
         </div>
       </form>
     </div>
