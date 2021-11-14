@@ -2,13 +2,13 @@
 const { Pool } = require("pg");
 const dotenv = require("dotenv");
 
-const prodCred = {
-  user: process.env.USER,
-  password: JSON.parse(process.env.PG_PW),
-  host: process.env.HOST,
-  port: JSON.parse(process.env.PORT),
-  database: process.env.DB,
-};
+// const prodCred = {
+//   user: process.env.USER,
+//   password: process.env.PG_PW,
+//   host: process.env.HOST,
+//   port: process.env.PORT,
+//   database: process.env.DB,
+// };
 
 const dbCred = {
   user: "postgres",
