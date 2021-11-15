@@ -53,7 +53,19 @@ const SIA_KEYWORDS = [
 
 const specChar = "#$%&'()*+,-./:;<=>?@[]^_`{|}~ ";
 
+const hasSpecChar = (word) => {
+  for (let i = 0; i < word.length; i++) {
+    if (specChar.indexOf(word[i]) !== -1) return true;
+  }
+  return false;
+};
+
+const hasSqlTerms = (string) => {
+  const filtered = SIA_KEYWORDS.filter((term) => string.indexOf(term) !== -1);
+  return filtered.length >= 2 ? true : false;
+};
+
 module.exports = {
-  specChar,
-  SIA_KEYWORDS,
+  hasSpecChar,
+  hasSqlTerms,
 };

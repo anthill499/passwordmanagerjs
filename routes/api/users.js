@@ -46,7 +46,6 @@ router.post("/signin", isValidInfo, async (req, res) => {
     if (!isValid) {
       res.status(401).json({ errors: { global: "Wrong Username/Password" } });
     }
-    debugger;
 
     const token = jwtAuthenticater(user.rows[0].user_id);
     res.json({

@@ -1,6 +1,6 @@
 // Token Authenticator
 const jwt = require("jsonwebtoken");
-const { specChar, SIA_KEYWORDS } = require("./variables");
+const { hasSpecChar, hasSqlTerms } = require("./variables");
 async function authenticateToken(req, res, next) {
   try {
     const jwtToken = await req.header("token");
@@ -28,49 +28,28 @@ async function isValidInfo(req, res, next) {
     } else if (username.length < 8 && username.length !== 0) {
       errors["username"] = "Username is too short. Choose 8 characters";
     }
-
-    // First layer SQL Injection Protect
-    for (let i = 0; i < username.length; i++) {
-      if (specChar.indexOf(username[i]) !== -1) {
-        errors["username"] = "Do not use special characters in username";
-      }
-    }
-
-    // Second Layer, SQL Injection
-    const filteredArray = SIA_KEYWORDS.filter(
-      (string) => username.indexOf(string) !== -1
-    );
-
-    if (filteredArray.length >= 2) {
-      errors["username"] = "Your username is unsafe, please choose another";
-    }
-
     if (password.length === 0) {
       errors["password"] = "Password can not be empty";
+    } else if (password.length < 8 && password.length !== 0) {
+      errors["password"] = "Password is too short. Choose 8 characters";
     }
+    // First layer SQL Injection Protect
+    if (hasSpecChar(username) === true)
+      errors["username"] = "Do not use special characters in username";
+    // Second Layer, SQL Injection
+    if (hasSqlTerms(username) === true)
+      errors["username"] = "Your username is not secure, please choose another";
+    if (hasSqlTerms(password) === true)
+      errors["password"] = "Your password is not secure, please choose another";
   } else if (req.path === "/signin") {
-    if (username.length === 0) {
-      errors["username"] = "Username can not be empty";
-    }
-    // First layer SQL Injection Protect
-    for (let i = 0; i < username.length; i++) {
-      if (specChar.indexOf(username[i]) !== -1) {
-        errors["username"] = "Do not use special characters in username";
-      }
-    }
-
-    // Second Layer, SQL Injection
-    const filteredArray = SIA_KEYWORDS.filter(
-      (string) => username.indexOf(string) !== -1
-    );
-
-    if (filteredArray.length >= 2) {
-      errors["username"] = "Nice try";
-    }
-
-    if (password.length === 0) {
-      errors["password"] = "Password can not be empty";
-    }
+    if (username.length === 0) errors["username"] = "Username can not be empty";
+    if (password.length === 0) errors["password"] = "Password can not be empty";
+    if (hasSpecChar(username) === true)
+      errors["username"] = "Do not use special characters in username";
+    if (hasSqlTerms(username) === true)
+      errors["username"] = "Your username is not secure, please choose another";
+    if (hasSqlTerms(password) === true)
+      errors["password"] = "Your password is not secure, please choose another";
   }
 
   if (Object.values(errors).length > 0) {
