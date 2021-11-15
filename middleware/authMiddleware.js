@@ -32,6 +32,7 @@ async function isValidInfo(req, res, next) {
     } else if (password.length < 8 && password.length !== 0) {
       errors["password"] = "Password is too short. Choose 8 characters";
     }
+
     // First layer SQL Injection Protect
     if (hasSpecChar(username) === true)
       errors["username"] = "Do not use special characters in username";

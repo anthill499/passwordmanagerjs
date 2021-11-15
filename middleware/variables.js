@@ -20,7 +20,6 @@ const SIA_KEYWORDS = [
   "ADMIN",
   "admin",
   "1=1",
-  "('1'='1--",
   "MD5",
   "GROUP BY",
   "group by",
@@ -50,7 +49,7 @@ const SIA_KEYWORDS = [
   "CONCAT",
   "concat",
 ];
-
+// c
 const specChar = "#$%&'()*+,-./:;<=>?@[]^_`{|}~ ";
 
 const hasSpecChar = (word) => {
