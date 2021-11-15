@@ -1,8 +1,9 @@
-CREATE DATABASE password_manager;
+-- CREATE DATABASE password_manager;
 
--- drop table scripts
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS combinations;
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE users(
     user_id uuid DEFAULT 
@@ -30,8 +31,6 @@ CREATE TABLE combinations(
 	  REFERENCES users(user_id)
 );
 
--- cascade
-INSERT INTO users (username, password) VALUES ('demouser', 'Password1!');
+INSERT INTO users (username, password) VALUES ('newUser123', 'Password1!');
 
-INSERT INTO combinations (author_id, username, company_name, pw, strength, removed) VALUES ('c487b22e-7888-492c-aa75-cefe7d831987', 'demouser', 'Facebook', 'Password!Q@#%#$%qwe123', 4, false);
 
