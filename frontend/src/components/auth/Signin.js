@@ -95,7 +95,7 @@ const Signin = () => {
           <button
             onClick={(e) =>
               handleSignin(e, {
-                username: "newUser123",
+                username: "demoUser123",
                 password: "passwordQ!1",
               })
             }

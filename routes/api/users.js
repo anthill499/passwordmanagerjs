@@ -59,5 +59,4 @@ router.post("/signin", isValidInfo, async (req, res) => {
   }
 });
 
-// Export the router
 module.exports = router;
