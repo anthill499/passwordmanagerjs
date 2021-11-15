@@ -1,10 +1,16 @@
 .Auth-Form {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: center;
   width: 350px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 20%;
+  background-color: #b9000010;
+  padding: 20px;
   margin: auto;
+  border-radius: 5px;
 }
 
 .Auth-Form form {
@@ -46,7 +52,7 @@
   width: 275px;
   border-radius: 25px;
   border: none;
-  outline: 0.5px solid #bebebe;
+  /* outline: 0.5px solid #bebebe; */
   background: #b90000;
   background: -moz-linear-gradient(left, #b90000 0%, #961f1f 51%, #7c2822 100%);
   background: -webkit-linear-gradient(
