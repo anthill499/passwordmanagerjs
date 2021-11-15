@@ -64,190 +64,93 @@ export default passwordGenerator;
 ```
 
 ```javascript
-import React, { useContext, useState, useEffect, Fragment } from "react";
-import { AuthContext } from "../../context/Contexts";
-import "../../styles/dash.css";
-import CredentialForm from "./newCred";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+const SIA_KEYWORDS = [
+  "drop",
+  "DROP",
+  "FROM",
+  "from",
+  "*",
+  "select",
+  "SELECT",
+  "ASCII",
+  "ascii",
+  "UNION",
+  "union",
+  "field",
+  "FIELD",
+  "COLLATE",
+  "collate",
+  "sql",
+  "SQL",
+  "admin",
+  "ADMIN",
+  "admin",
+  "1=1",
+  "MD5",
+  "GROUP BY",
+  "group by",
+  "having",
+  "HAVING",
+  "table",
+  "TABLE",
+  "*",
+  "bypass",
+  "blacklisting",
+  ";",
+  "INSERT",
+  "insert",
+  "EXEC",
+  "exec",
+  "RECONFIGURE",
+  "reconfigure",
+  "ISNULL",
+  "isnull",
+  "SUBSTRING",
+  "substring",
+  "WHEN",
+  "SCHEMA",
+  "schema",
+  "VERSION",
+  "version",
+  "CONCAT",
+  "concat",
+];
 
-const Dashboard = () => {
-  const [modalOpen, setmodalOpen] = useState(false);
-  const [creds, setCreds] = useState(null);
-  const authGlobal = useContext(AuthContext);
+const specChar = "#$%&'()*+,-./:;<=>?@[]^_`{|}~ ";
 
-  const dictionary = {
-    1: <span style={{ color: "red" }}>Weak</span>,
-    2: <span style={{ color: "#ff7b00" }}>Good</span>,
-    3: <span style={{ color: "green" }}>Strong</span>,
-    4: <span style={{ color: "#1ac703" }}>Very Strong</span>,
-  };
-
-  useEffect(() => {
-    const fetchUserCreds = async () => {
-      try {
-        const response = await fetch(`/api/cred/${authGlobal.id}`);
-        const parseResp = await response.json();
-        if (response.ok) {
-          setCreds(parseResp);
-        }
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
-    fetchUserCreds();
-  }, [authGlobal]);
-
-  if (!creds)
-    return (
-      <div className="lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    );
-
-  const handleModalKey = (e) => {
-    if (e.key === "Escape") {
-      if (!modalOpen) return;
-      setmodalOpen(!modalOpen);
-    }
-  };
-
-  return (
-    <Fragment>
-      {modalOpen && (
-        <CredentialForm
-          modalOpen={modalOpen}
-          setmodalOpen={setmodalOpen}
-          setCreds={setCreds}
-          creds={creds}
-        />
-      )}
-      <div className="Dashboard-Container" onKeyUp={(e) => handleModalKey(e)}>
-        <h4>{authGlobal.username}'s Dashboard</h4>
-        <div className="Dashboard-Buttons">
-          <button
-            className="Cred-Button"
-            onClick={() => setmodalOpen(!modalOpen)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              x="0px"
-              y="0px"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              style={{ fill: "#000000", margin: "auto" }}
-            >
-              <path
-                fillRule="evenodd"
-                d="M 11 2 L 11 11 L 2 11 L 2 13 L 11 13 L 11 22 L 13 22 L 13 13 L 22 13 L 22 11 L 13 11 L 13 2 Z"
-              ></path>
-            </svg>
-          </button>
-        </div>
-        {creds?.length === 0 ? (
-          <h3 id="First-Cred">Create Your First Credential!</h3>
-        ) : (
-          <div className="Dashboard-Map">
-            <div className="Dashboard-Title">
-              <div>
-                <h3>Company Name</h3>
-                <ul className="Cred-List">
-                  {creds?.map((cred, i) => (
-                    <li className="Cred-List-Input" key={i}>
-                      {cred.company_name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3>Username</h3>
-                <ul className="Cred-List">
-                  {creds?.map((cred, i) => (
-                    <li className="Cred-List-Input" key={i}>
-                      {cred.username}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3>Your Password</h3>
-                <ul className="Cred-List">
-                  {creds?.map((cred, i) => (
-                    <li className="Cred-List-Input" key={i}>
-                      {cred.pw}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3>Password Strength</h3>
-                <ul className="Cred-List">
-                  {creds?.map((cred, i) => (
-                    <li className="Cred-List-Input" key={i}>
-                      {dictionary[cred.strength]}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3>Removed</h3>
-                <ul className="Cred-List Class" style={{ textAlign: "center" }}>
-                  {creds?.map((cred, i) => {
-                    const removedStatus = cred.removed.toString();
-                    return (
-                      <li className="Cred-List-Input" key={i}>
-                        {removedStatus === "true" ? (
-                          <CheckCircleIcon
-                            style={{
-                              color: "green",
-                              fontSize: "small",
-                              textAlign: "center",
-                            }}
-                          />
-                        ) : (
-                          <RadioButtonUncheckedIcon
-                            style={{
-                              color: "#b90000",
-                              fontSize: "small",
-                              textAlign: "center",
-                            }}
-                          />
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-    </Fragment>
-  );
+const hasSpecChar = (word) => {
+  for (let i = 0; i < word.length; i++) {
+    if (specChar.indexOf(word[i]) !== -1) return true;
+  }
+  return false;
 };
 
-export default Dashboard;
+const hasSqlTerms = (string) => {
+  const filtered = SIA_KEYWORDS.filter((term) => string.indexOf(term) !== -1);
+  return filtered.length >= 2 ? true : false;
+};
+
+module.exports = {
+  hasSpecChar,
+  hasSqlTerms,
+};
 ```
 
 ## 💪 Challenges Faced/Solutions
 
 ### Problem: First exposure to making a full stack application with a SQL Database and a Node.js backend
-
 - Learned to create database schemas, tables, columns with appropriate datatype to integrate into Node.js
 - Learned more about environmental variables in connection between Node.js and PostgreSQL
 - Implemented own frontend form input validation in user authentication using Express.js middleware
 
 ### Problem: Difficulty understanding useEffect React hook
-
 - Learned and implemented optional chaining `?.`, null catches with a spinner as a replacement
 
 ### Problem: Knowing whether or not to hold values globally `useContext/useReducer` or locally `useState`.
-
 - Determined whether or not every component requires the information. Specifically, the credentials are only utilized in the dashboard, meaning that only 1 `GET` request is necessary locally and that local state information can be passed into another functional component through props.
+
+### Problem: ```Proxy error: Could not proxy request URL from localhost:3000 to http://localhost:5000/ ECONNREFUSED```
+- Added ```--ignore``` to the backend ```package.json``` script for ```server```
 
 ## 💡 Future Implementations
 
@@ -269,3 +172,4 @@ export default Dashboard;
 
 ### SQL Database
 - Write better database queries to further prevent SQL injections
+- Implement a strong middleware to stop possible threats at frontend
