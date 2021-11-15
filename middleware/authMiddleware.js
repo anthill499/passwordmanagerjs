@@ -1,6 +1,6 @@
 // Token Authenticator
 const jwt = require("jsonwebtoken");
-
+const { specChar, SIA_KEYWORDS } = require("./variables");
 async function authenticateToken(req, res, next) {
   try {
     const jwtToken = await req.header("token");
@@ -20,8 +20,6 @@ async function authenticateToken(req, res, next) {
 async function isValidInfo(req, res, next) {
   const errors = {};
   const { username, password } = await req.body;
-  // const regex =
-  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/gm;
 
   // Fill errors hash with errors
   if (req.path === "/signup") {
@@ -31,6 +29,22 @@ async function isValidInfo(req, res, next) {
       errors["username"] = "Username is too short. Choose 8 characters";
     }
 
+    // First layer SQL Injection Protect
+    for (let i = 0; i < username.length; i++) {
+      if (specChar.indexOf(username[i]) !== -1) {
+        errors["username"] = "Do not use special characters in username";
+      }
+    }
+
+    // Second Layer, SQL Injection
+    const filteredArray = SIA_KEYWORDS.filter(
+      (string) => username.indexOf(string) !== -1
+    );
+
+    if (filteredArray.length >= 2) {
+      errors["username"] = "Your username is unsafe, please choose another";
+    }
+
     if (password.length === 0) {
       errors["password"] = "Password can not be empty";
     }
@@ -38,6 +52,22 @@ async function isValidInfo(req, res, next) {
     if (username.length === 0) {
       errors["username"] = "Username can not be empty";
     }
+    // First layer SQL Injection Protect
+    for (let i = 0; i < username.length; i++) {
+      if (specChar.indexOf(username[i]) !== -1) {
+        errors["username"] = "Do not use special characters in username";
+      }
+    }
+
+    // Second Layer, SQL Injection
+    const filteredArray = SIA_KEYWORDS.filter(
+      (string) => username.indexOf(string) !== -1
+    );
+
+    if (filteredArray.length >= 2) {
+      errors["username"] = "Nice try";
+    }
+
     if (password.length === 0) {
       errors["password"] = "Password can not be empty";
     }

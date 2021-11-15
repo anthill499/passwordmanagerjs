@@ -12,21 +12,18 @@ router.post("/signup", isValidInfo, async (req, res) => {
       username,
     ]);
 
-    // Similar to ActiveRecord
     if (user.rows.length !== 0) {
       return res
         .status(401)
         .json({ errors: { global: "Username already taken!" } });
     }
 
-    // If username is unique, bcrypt the input password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = await pool.query(
       "INSERT INTO users (username, password) VALUES ($1, $2) RETURNING *",
       [username, hashedPassword]
     );
-    // Create a JWT token, destructures user
     const currUser = await newUser.rows[0];
     const token = jwtAuthenticater(currUser.user_id);
     res.json({ token, username: currUser.username, id: currUser.user_id });

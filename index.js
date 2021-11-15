@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors"); // diff domain apps to interact
 const bodyParser = require("body-parser");
 const path = require("path");
+
 const port = process.env.NODE_ENV === "production" ? process.env.PORT : 5000;
 // this is a common error, port number
 if (process.env.NODE_ENV === "production") {
