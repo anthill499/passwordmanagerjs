@@ -48,6 +48,8 @@ const SIA_KEYWORDS = [
   "version",
   "CONCAT",
   "concat",
+  "delete",
+  "DELETE",
 ];
 // c
 const specChar = "#$%&'()*+,-./:;<=>?@[]^_`{|}~ ";
