@@ -8,6 +8,7 @@ const Signin = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [backendErrors, setbackendErrors] = useState([]);
+  const [spinner, setspinner] = useState(false);
   const authGlobal = useContext(AuthContext);
   const navigate = useNavigate();
   const handleSignin = async (
@@ -15,6 +16,7 @@ const Signin = () => {
     data = { username: username, password: password }
   ) => {
     e.preventDefault();
+    setspinner(true);
     try {
       const response = await fetch("/api/auth/signin", {
         method: "post",
@@ -32,8 +34,10 @@ const Signin = () => {
       } else {
         setbackendErrors(parseResp);
       }
+      setspinner(false);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
+      throw err;
     }
   };
 
@@ -44,6 +48,18 @@ const Signin = () => {
           ? "Sign in to your account!"
           : backendErrors?.errors?.global}{" "}
       </h4>
+      {spinner && (
+        <div class="lds-roller">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
       <form>
         <label
           htmlFor="username"

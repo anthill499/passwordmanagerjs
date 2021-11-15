@@ -8,6 +8,7 @@ const Signup = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const [backendErrors, setbackendErrors] = useState(null);
+  const [spinner, setspinner] = useState(false);
 
   const navigate = useNavigate();
 
@@ -19,6 +20,7 @@ const Signup = () => {
     data = { username: username, password: password }
   ) => {
     e.preventDefault();
+    setspinner(true);
     try {
       const response = await fetch(url, {
         method: "post",
@@ -35,6 +37,7 @@ const Signup = () => {
       } else {
         setbackendErrors(parseResp);
       }
+      setspinner(false);
     } catch (err) {
       console.error(err);
     }
@@ -47,6 +50,18 @@ const Signup = () => {
           ? "Get started today!"
           : backendErrors?.errors?.global}{" "}
       </h4>
+      {spinner && (
+        <div class="lds-roller">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      )}
       <form>
         <label
           htmlFor="username"
