@@ -14,7 +14,6 @@ async function authenticateToken(req, res, next) {
     return res.status(401).json({ message: "You are not authorized" });
   }
 }
-
 // regEx: "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
 // Similar to validator
 async function isValidInfo(req, res, next) {
@@ -56,7 +55,6 @@ async function isValidInfo(req, res, next) {
     return res.status(401).json({ errors: errors });
   }
 
-  // return
   next();
 }
 
