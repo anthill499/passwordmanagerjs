@@ -6,7 +6,7 @@ const isValidCred = require("../../middleware/credMiddleware");
 // ADD token middleware = SOON !
 
 // Fetch all credentials, using id of the user, GET
-router.get("/:id", async (req, res) => {
+router.get("/:id", isValidCred, async (req, res) => {
   try {
     const credentials = await pool.query(
       "SELECT * FROM combinations WHERE author_id = $1",
@@ -19,7 +19,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Create a new credential, POST
-router.post("/new", isValidCred, async (req, res) => {
+router.post("/new", isValidCred, isValidCred, async (req, res) => {
   const removed = false;
   try {
     const { userId, newPassword, username, companyName, strength } =
