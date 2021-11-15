@@ -266,3 +266,6 @@ export default Dashboard;
 
 - Have a stronger/functioning jsonwebtoken express middleware for actual authentication
 - Change the current user authorization middleware to a middleware that resembles a Mongoose validator prior to hitting the API endpoint
+
+### SQL Database
+- Write better database queries to further prevent SQL injections
