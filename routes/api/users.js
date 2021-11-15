@@ -28,7 +28,7 @@ router.post("/signup", isValidInfo, async (req, res) => {
     const token = jwtAuthenticater(currUser.user_id);
     res.json({ token, username: currUser.username, id: currUser.user_id });
   } catch (error) {
-    res.status(500).json({ errors: { global: "Bad Request?" } });
+    return res.status(500).json({ errors: { global: "Bad Request?" } });
   }
 });
 
@@ -40,7 +40,9 @@ router.post("/signin", isValidInfo, async (req, res) => {
       username,
     ]);
     if (user.rows.length === 0) {
-      res.status(422).json({ errors: { global: "Invalid Credentials" } });
+      return res
+        .status(422)
+        .json({ errors: { global: "Invalid Credentials" } });
     }
     const isValid = await bcrypt.compare(password, user.rows[0].password);
     if (!isValid) {
@@ -48,13 +50,13 @@ router.post("/signin", isValidInfo, async (req, res) => {
     }
 
     const token = jwtAuthenticater(user.rows[0].user_id);
-    res.json({
+    return res.json({
       token,
       username: user.rows[0].username,
       id: user.rows[0].user_id,
     });
   } catch (err) {
-    res.status(500).json({ errors: "Bad Request" });
+    return res.status(500).json({ errors: "Bad Request" });
   }
 });
 
