@@ -14,6 +14,7 @@ async function isValidCred(req, res, next) {
       errors["username"] = "Do not use special characters in username";
     if (hasSqlTerms(username) === true)
       errors["username"] = "Your username is not secure, please choose another";
+
     if (companyName.length === 0)
       errors["company"] = "Company Name can not be empty";
     if (hasSpecChar(companyName) === true)

@@ -29,8 +29,9 @@ CREATE TABLE combinations(
     CONSTRAINT f_user
       FOREIGN KEY(author_id) 
 	  REFERENCES users(user_id)
+      ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-INSERT INTO users (username, password) VALUES ('newUser123', 'Password1!');
+INSERT INTO users (username, password) VALUES ('demoUser123', 'passwordQ!1');
 
 
