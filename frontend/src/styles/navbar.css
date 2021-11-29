@@ -18,3 +18,7 @@
   align-items: center;
   gap: 2.5px;
 }
+
+.nav-options li:hover {
+  color: rgb(223, 223, 223);
+}
