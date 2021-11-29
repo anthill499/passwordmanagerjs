@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../../context/Contexts";
 import "../../styles/auth.css";
-import "../../styles/global.css";
 // Sign up form
 const Signup = () => {
   const [username, setusername] = useState("");

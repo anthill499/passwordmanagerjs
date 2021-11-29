@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../../context/Contexts";
 import { useNavigate } from "react-router";
-import "../../styles/global.css";
 import "../../styles/auth.css";
 
 const Signin = () => {

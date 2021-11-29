@@ -3,7 +3,6 @@ import { AuthContext } from "../../context/Contexts";
 import passwordGenerator from "../../util/passwordGenerator";
 // import { useLocation } from "react-router";
 import "../../styles/dash.css";
-import "../../styles/global.css";
 import "../../styles/auth.css";
 
 const CredentialForm = ({ modalOpen, setmodalOpen, setCreds, creds }) => {
