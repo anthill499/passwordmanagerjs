@@ -1,16 +1,25 @@
 .Landing-Container {
   width: 100%;
-  color: white;
+  color: black;
+  z-index: 3;
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.landing-svg {
-  position: absolute;
-  z-index: -1;
+.heading {
+  height: 100%;
+}
+
+.landing-png {
+  width: 1vw;
+  height: 1vh;
 }
 
 .clip {
   position: absolute;
-  clip-path: polygon(100% 0, 0 0, 0 100%);
-  background-color: white;
-  z-index: 2;
+  clip-path: polygon(0 0, 100% 50%, 100% 0);
+  background-color: #fcfcfc;
+  z-index: 1;
+  height: 100vw;
 }
